@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-const str = '我爱你中国'
+const str = "我爱你中国"
 export { str }
 </script>
 
