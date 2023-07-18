@@ -16,7 +16,6 @@
 <script setup lang="ts">
 const str = '我爱你中国'
 import { Plus, Edit } from '@element-plus/icons-vue'
-
 </script>
 
 <style scoped lang="scss">

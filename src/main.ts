@@ -8,7 +8,7 @@ import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 // import SvgIcon from '@component/SvgIcon/index.vue';
 const app = createApp(App)
 // app.component('SvgIcon',SvgIcon)
-import globalComponent from '@/components' 
+import globalComponent from '@/components'
 
 app.use(globalComponent)
 app.use(ElementPlus, {
