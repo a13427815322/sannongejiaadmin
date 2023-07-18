@@ -4,14 +4,19 @@
     <el-button type="primary" size="default" :icon="Plus">主要按钮</el-button>
     <el-button type="primary" size="default" :icon="Edit">编辑按钮</el-button>
     <svg-icon name="sangnongejia" fill="red"></svg-icon>
-    <svg-icon name="sannongejia" fill="#24AC6B" width="16px" height="16px"></svg-icon>
+    <svg-icon
+      name="sannongejia"
+      fill="#24AC6B"
+      width="16px"
+      height="16px"
+    ></svg-icon>
   </div>
 </template>
 
 <script setup lang="ts">
 const str = '我爱你中国'
 import { Plus, Edit } from '@element-plus/icons-vue'
-import SvgIcon from '@/components/Svgicon/index.vue'
+
 </script>
 
 <style scoped lang="scss">
