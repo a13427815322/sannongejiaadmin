@@ -13,10 +13,9 @@ export default defineConfig(({ command }) => {
         iconDirs: [path.resolve(process.cwd(), 'src/assets/icons')],
         // Specify symbolId format
         symbolId: 'icon-[dir]-[name]',
-        
       }),
       viteMockServe({
-       enable: command === 'serve',
+        enable: command === 'serve',
       }),
     ],
     server: {
