@@ -9,6 +9,7 @@ import '@/styles/index.scss'
 // import SvgIcon from '@component/SvgIcon/index.vue';
 // app.component('SvgIcon',SvgIcon)
 import globalComponent from '@/components'
+import pinia from './store'
 //引入路由
 import router from './router'
 // import axios from 'axios'
@@ -24,6 +25,7 @@ import router from './router'
 const app = createApp(App)
 app.use(globalComponent)
 app.use(router)
+app.use(pinia)
 app.use(ElementPlus, {
   locale: zhCn,
 })
