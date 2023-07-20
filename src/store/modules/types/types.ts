@@ -1,3 +1,3 @@
- export interface userState{
-    token:string|null
- }
+export interface userState {
+  token: string | null
+}

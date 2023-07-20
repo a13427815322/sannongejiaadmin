@@ -4,7 +4,7 @@ export interface loginForm {
 }
 interface dataTyoe {
   token?: string
-  message?:string
+  message?: string
 }
 export interface loginResponseData {
   code: number
