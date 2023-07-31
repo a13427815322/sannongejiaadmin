@@ -1,13 +1,7 @@
 <template>
-    <div>
-已发货订单
-    </div>
+  <div>已发货订单</div>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts"></script>
 
-</script>
-
-<style scoped>
-
-</style>
+<style scoped></style>

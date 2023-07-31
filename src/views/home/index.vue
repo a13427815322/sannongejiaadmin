@@ -1,5 +1,5 @@
 <template>
-  <div style="background-color: red;height: 100vh;">
+  <div style="background-color: red; height: 100vh">
     <h1>我是{{ a }}</h1>
   </div>
 </template>

@@ -1,7 +1,7 @@
 //进行axios的二次封装
 import axios from 'axios'
 import { ElMessage } from 'element-plus'
-import useUserStore from '@/store/modules/user';
+import useUserStore from '@/store/modules/user'
 
 //creat创建实例、
 let request = axios.create({
@@ -9,13 +9,13 @@ let request = axios.create({
   timeout: 50000,
 })
 request.interceptors.request.use((config) => {
-  let UserStore=useUserStore()
+  let UserStore = useUserStore()
 
   //headers请求头,公共参数
-  if(UserStore.token){
-  config.headers.token=UserStore.token
-}
-return config
+  if (UserStore.token) {
+    config.headers.token = UserStore.token
+  }
+  return config
 })
 request.interceptors.response.use(
   (response) => {

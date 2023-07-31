@@ -45,7 +45,7 @@ import { ElNotification } from 'element-plus'
 import router from '@/router'
 import { gettime } from '@/utils/time'
 import { useRoute } from 'vue-router'
-const $router=useRoute()
+const $router = useRoute()
 //console.log($router)
 let user = reactive({ username: '', password: '' })
 let userStore = useUserSrore()
@@ -66,13 +66,13 @@ const login = async () => {
   lodaing.value = true
   try {
     await userStore.userLogin(user)
-    if($router.query){
-     let redirect:any= $router.query.redirect
-     router.push({path:redirect||'/'})
-    }else{
+    if ($router.query) {
+      let redirect: any = $router.query.redirect
+      router.push({ path: redirect || '/' })
+    } else {
       router.push('/')
     }
-    
+
     lodaing.value = false
     ElNotification({
       type: 'success',
