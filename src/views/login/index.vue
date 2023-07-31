@@ -44,6 +44,9 @@ import useUserSrore from '@/store/modules/user'
 import { ElNotification } from 'element-plus'
 import router from '@/router'
 import { gettime } from '@/utils/time'
+import { useRoute } from 'vue-router'
+const $router=useRoute()
+//console.log($router)
 let user = reactive({ username: '', password: '' })
 let userStore = useUserSrore()
 let lodaing = ref(false)
@@ -63,7 +66,13 @@ const login = async () => {
   lodaing.value = true
   try {
     await userStore.userLogin(user)
-    router.push('/')
+    if($router.query){
+     let redirect:any= $router.query.redirect
+     router.push({path:redirect||'/'})
+    }else{
+      router.push('/')
+    }
+    
     lodaing.value = false
     ElNotification({
       type: 'success',

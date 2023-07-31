@@ -1,14 +1,21 @@
 //进行axios的二次封装
 import axios from 'axios'
 import { ElMessage } from 'element-plus'
+import useUserStore from '@/store/modules/user';
+
 //creat创建实例、
 let request = axios.create({
   baseURL: import.meta.env.VITE_APP_BASE_API,
   timeout: 50000,
 })
 request.interceptors.request.use((config) => {
+  let UserStore=useUserStore()
+
   //headers请求头,公共参数
-  return config
+  if(UserStore.token){
+  config.headers.token=UserStore.token
+}
+return config
 })
 request.interceptors.response.use(
   (response) => {

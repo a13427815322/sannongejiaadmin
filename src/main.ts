@@ -12,6 +12,7 @@ import globalComponent from '@/components'
 import pinia from './store'
 //引入路由
 import router from './router'
+import './permission'
 // import axios from 'axios'
 // axios({
 //   url: '/api/user/login',

@@ -1,4 +1,6 @@
 import SvgIcon from '@/components/Svgicon/index.vue'
+import * as ElementPlusIconsVue from '@element-plus/icons-vue'
+
 const allGloablComponent: any = { SvgIcon }
 
 export default {
@@ -6,5 +8,8 @@ export default {
     Object.keys(allGloablComponent).forEach((key) => {
       app.component(key, allGloablComponent[key])
     })
+    for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+      app.component(key, component)
+    }
   },
 }

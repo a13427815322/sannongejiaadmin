@@ -22,7 +22,7 @@ interface userinfo {
   token: String
 }
 interface user {
-  checkUser: userinfo
+  user: userinfo
 }
 export interface uesrinfoResponse {
   code: number
