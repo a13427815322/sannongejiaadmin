@@ -6,32 +6,31 @@ export interface userState {
   avatar: String
 }
 export interface attrState {
-  propertyList:propertylist,
-  Selectvalue:number,
-  platformattributeList:platformattributeList,
-
+  propertyList: propertylist
+  Selectvalue: number
+  platformattributeList: platformattributeList
 }
-interface propertylist{
-  code?:number,
-  data?:property[],
-  message?:string
+interface propertylist {
+  code?: number
+  data?: property[]
+  message?: string
 }
-interface property{
-id:number,
-name:string,
+interface property {
+  id: number
+  name: string
 }
-interface platformattributeList{
-  code?:number,
-  data?:platformattribute,
-  message?:string 
+interface platformattributeList {
+  code?: number
+  data?: platformattribute
+  message?: string
 }
-export interface platformattribute{
-  id?:number,
-  propertyid:number,
-  name:string,
-  value:attributevalue[]
+export interface platformattribute {
+  id?: number
+  propertyid: number
+  name: string
+  value: attributevalue[]
 }
-interface attributevalue{
-  valuename:string,
-  flag:boolean
+interface attributevalue {
+  valuename: string
+  flag: boolean
 }

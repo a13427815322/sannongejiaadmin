@@ -10,14 +10,13 @@
 import useLayOutSettingStore from '@/store/modules/setting'
 import { watch, ref, nextTick } from 'vue'
 
-
 let isrefresh = ref(true)
 let setting = useLayOutSettingStore()
 watch(
   () => setting.Refresh,
   () => {
     isrefresh.value = false
-      nextTick(() => {
+    nextTick(() => {
       isrefresh.value = true
     })
   },
