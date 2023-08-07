@@ -1,5 +1,5 @@
 <template>
-  <router-view class="view" v-slot="{ Component }">
+  <router-view class="view" v-slot="{ Component }" :key="$route.fullPath">
     <transition name="fade" mode="out-in">
       <component :is="Component" v-if="isrefresh" />
     </transition>
@@ -9,13 +9,15 @@
 <script setup lang="ts">
 import useLayOutSettingStore from '@/store/modules/setting'
 import { watch, ref, nextTick } from 'vue'
+
+
 let isrefresh = ref(true)
 let setting = useLayOutSettingStore()
 watch(
   () => setting.Refresh,
   () => {
     isrefresh.value = false
-    nextTick(() => {
+      nextTick(() => {
       isrefresh.value = true
     })
   },
