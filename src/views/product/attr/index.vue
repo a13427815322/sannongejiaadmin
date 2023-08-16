@@ -1,8 +1,12 @@
 <template>
   <div>
-  <Propertyselect :addvalue="addvalue"></Propertyselect>
+    <Propertyselect :addvalue="addvalue"></Propertyselect>
     <!--产品分类选择框 -->
-    <el-card shadow="always" :body-style="{ padding: '20px' }" v-if="addvalue==0">
+    <el-card
+      shadow="always"
+      :body-style="{ padding: '20px' }"
+      v-if="addvalue == 0"
+    >
       <el-button
         type="success"
         style="margin: 10px auto"
@@ -54,7 +58,11 @@
       </el-table>
     </el-card>
     <!-- 属性展示页面操作修改和删除 -->
-    <el-card shadow="always" :body-style="{ padding: '20px' }" v-if="addvalue==1">
+    <el-card
+      shadow="always"
+      :body-style="{ padding: '20px' }"
+      v-if="addvalue == 1"
+    >
       <el-from>
         <el-form-item label="属性名称" required>
           <el-input
@@ -124,7 +132,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, onBeforeUnmount,watch } from 'vue'
+import { onMounted, onBeforeUnmount, watch } from 'vue'
 import {
   GetPropertyinfo,
   Getplatformattribute,
@@ -134,7 +142,6 @@ import {
 import useAttrStore from '@/store/modules/attr'
 import { ref, reactive, nextTick } from 'vue'
 import { ElMessage } from 'element-plus'
-
 
 // 记录选择了哪个产品分类
 let AttrStore = useAttrStore()
@@ -153,12 +160,14 @@ const getpropertyList = async () => {
     console.error('获取属性信息时出错:', error)
   }
 }
-watch(()=>AttrStore.Selectvalue,()=>{
-  getplatformattribute()
-  // console.log(AttrStore.Selectvalue)
-})
+watch(
+  () => AttrStore.Selectvalue,
+  () => {
+    getplatformattribute()
+    // console.log(AttrStore.Selectvalue)
+  },
+)
 const getplatformattribute = async () => {
- 
   try {
     const platformattributeList = await Getplatformattribute(
       AttrStore.Selectvalue,
