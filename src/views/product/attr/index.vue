@@ -1,21 +1,8 @@
 <template>
   <div>
-    <el-select
-      placeholder="请选择产品分类"
-      v-model="value"
-      @change="getplatformattribute"
-      style="margin: 10px auto"
-      :disabled="addvalue"
-    >
-      <el-option
-        v-for="item in AttrStore.propertyList.data"
-        :label="item.name"
-        :key="item.id"
-        :value="item.id"
-      />
-    </el-select>
+  <Propertyselect :addvalue="addvalue"></Propertyselect>
     <!--产品分类选择框 -->
-    <el-card shadow="always" :body-style="{ padding: '20px' }" v-if="!addvalue">
+    <el-card shadow="always" :body-style="{ padding: '20px' }" v-if="addvalue==0">
       <el-button
         type="success"
         style="margin: 10px auto"
@@ -67,7 +54,7 @@
       </el-table>
     </el-card>
     <!-- 属性展示页面操作修改和删除 -->
-    <el-card shadow="always" :body-style="{ padding: '20px' }" v-if="addvalue">
+    <el-card shadow="always" :body-style="{ padding: '20px' }" v-if="addvalue==1">
       <el-from>
         <el-form-item label="属性名称" required>
           <el-input
@@ -137,7 +124,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, onBeforeUnmount } from 'vue'
+import { onMounted, onBeforeUnmount,watch } from 'vue'
 import {
   GetPropertyinfo,
   Getplatformattribute,
@@ -148,7 +135,7 @@ import useAttrStore from '@/store/modules/attr'
 import { ref, reactive, nextTick } from 'vue'
 import { ElMessage } from 'element-plus'
 
-const value = ref()
+
 // 记录选择了哪个产品分类
 let AttrStore = useAttrStore()
 onMounted(() => {
@@ -166,9 +153,12 @@ const getpropertyList = async () => {
     console.error('获取属性信息时出错:', error)
   }
 }
+watch(()=>AttrStore.Selectvalue,()=>{
+  getplatformattribute()
+  // console.log(AttrStore.Selectvalue)
+})
 const getplatformattribute = async () => {
-  AttrStore.Selectvalue = value.value
-  // 获取用户选择的产品分类存入仓库
+ 
   try {
     const platformattributeList = await Getplatformattribute(
       AttrStore.Selectvalue,
@@ -181,7 +171,7 @@ const getplatformattribute = async () => {
     console.error('获取属性信息时出错:', error)
   }
 }
-const addvalue = ref(false)
+const addvalue = ref(0)
 const add = () => {
   Object.assign(attribute, {
     id: null,
@@ -190,13 +180,13 @@ const add = () => {
     value: [],
   })
   // 数据初始化
-  addvalue.value = true
+  addvalue.value = 1
   // 控制是否出现属性值添加或修改界面
 }
 const edit = (row: any) => {
   console.log(row)
   Object.assign(attribute, row)
-  addvalue.value = true
+  addvalue.value = 1
   // 控制是否出现属性值添加或修改界面
 }
 const delattribute = async (id: number) => {
@@ -301,7 +291,7 @@ const insertattrvute = async () => {
       type: 'success',
       message: '保存成功',
     })
-    addvalue.value = false
+    addvalue.value = 0
     getplatformattribute()
     // 重新获得属性更新数据
   } catch (error: any) {
@@ -309,11 +299,11 @@ const insertattrvute = async () => {
       type: 'error',
       message: error.message,
     })
-    addvalue.value = false
+    addvalue.value = 0
   }
 }
 const qvxiao = () => {
-  addvalue.value = false
+  addvalue.value = 0
   getplatformattribute()
   //取消保存，更新数据，防止弱拷贝
 }

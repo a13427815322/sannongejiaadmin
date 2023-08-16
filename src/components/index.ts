@@ -1,7 +1,8 @@
 import SvgIcon from '@/components/Svgicon/index.vue'
+import Propertyselect from '@/components/Propertyselect/index.vue'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 
-const allGloablComponent: any = { SvgIcon }
+const allGloablComponent: any = { SvgIcon,Propertyselect }
 
 export default {
   install(app: any) {
