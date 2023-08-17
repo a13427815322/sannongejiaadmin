@@ -21,10 +21,8 @@ interface userinfo {
   routes: String[]
   token: String
 }
-interface user {
-  user: userinfo
-}
+
 export interface uesrinfoResponse {
   code: number
-  data: user
+  data: userinfo
 }

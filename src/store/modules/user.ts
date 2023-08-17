@@ -31,8 +31,8 @@ let useUserStore = defineStore('User', {
       let result: uesrinfoResponse = await reqUserInfo()
       // console.log(result)
       if (result.code === 200) {
-        this.username = result.data.user.username
-        this.avatar = result.data.user.avatar
+        this.username = result.data.username
+        this.avatar = result.data.avatar
       } else {
       }
     },
