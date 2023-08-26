@@ -3,17 +3,31 @@
     <el-row :gutter="0">
       <el-col :span="12" :xs="0"></el-col>
       <el-col :span="12" :xs="24">
-        <el-form class="login_from" :model="user" :rules="rules" ref="loginFroms">
+        <el-form
+          class="login_from"
+          :model="user"
+          :rules="rules"
+          ref="loginFroms"
+        >
           <h1>HELLO</h1>
           <h2>欢迎来到三农e家</h2>
           <el-form-item prop="username">
             <el-input v-model="user.username" :prefix-icon="User"></el-input>
           </el-form-item>
           <el-form-item prop="password">
-            <el-input v-model="user.password" :prefix-icon="Lock" show-password="true"></el-input>
+            <el-input
+              v-model="user.password"
+              :prefix-icon="Lock"
+              show-password="true"
+            ></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button :loading="lodaing" type="success" class="login_btn" @click="login">
+            <el-button
+              :loading="lodaing"
+              type="success"
+              class="login_btn"
+              @click="login"
+            >
               登录
             </el-button>
           </el-form-item>
@@ -58,12 +72,11 @@ const login = async () => {
       if (redirect) {
         const routess = router.getRoutes()
         console.log(routess)
-        const isroute=routess.find(item => {
-          console.log(item.path,redirect)
-          console.log(item.path==redirect)
-          return item.path==redirect
-        }
-        )
+        const isroute = routess.find((item) => {
+          console.log(item.path, redirect)
+          console.log(item.path == redirect)
+          return item.path == redirect
+        })
         console.log(isroute)
         if (isroute) {
           console.log(1)
@@ -71,11 +84,9 @@ const login = async () => {
         } else {
           router.push('/404')
         }
-
       } else {
         router.push({ path: '/' })
       }
-
     } else {
       router.push('/')
     }

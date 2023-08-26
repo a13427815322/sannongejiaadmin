@@ -24,7 +24,7 @@ router.beforeEach(async (to, from, next) => {
       } else {
         try {
           await Userstore.userinfo()
-          next({...to})
+          next({ ...to })
         } catch (error) {
           REMOVE_TOKEN()
           window.location.reload()

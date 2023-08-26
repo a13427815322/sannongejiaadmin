@@ -1,26 +1,58 @@
 <template>
   <div>
-    <el-card style="margin:10px 0 ;">
-      <el-from :inline="true" style="display: flex;justify-content: space-between;align-items: center">
+    <el-card style="margin: 10px 0">
+      <el-from
+        :inline="true"
+        style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        "
+      >
         <el-form-item label="用户名">
-          <el-input placeholder="请输入搜索用户名" style="width: 200px;" v-model="serachvalue"></el-input>
+          <el-input
+            placeholder="请输入搜索用户名"
+            style="width: 200px"
+            v-model="serachvalue"
+          ></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="success" @click="searchuser" :disabled="!serachvalue">搜索</el-button>
+          <el-button
+            type="success"
+            @click="searchuser"
+            :disabled="!serachvalue"
+          >
+            搜索
+          </el-button>
           <el-button type="success" @click="resetuser">重置</el-button>
         </el-form-item>
       </el-from>
     </el-card>
     <el-card>
       <el-button type="success" @click="adduser">添加用户</el-button>
-      <el-popconfirm title="你确认要删除选中的用户吗？" confirmButtonText="删除" cancelButtonText="取消" confirmButtonType="success"
-        cancelButtonType="text" icon="Delete" iconColor="#f90" @confirm="deletesomeuser">
+      <el-popconfirm
+        title="你确认要删除选中的用户吗？"
+        confirmButtonText="删除"
+        cancelButtonText="取消"
+        confirmButtonType="success"
+        cancelButtonType="text"
+        icon="Delete"
+        iconColor="#f90"
+        @confirm="deletesomeuser"
+      >
         <template #reference>
           <el-button type="success">批量删除</el-button>
         </template>
       </el-popconfirm>
 
-      <el-table border stripe @selection-change="" style="margin:  10px 0;" :data="adminuserinfo" ref="reftable">
+      <el-table
+        border
+        stripe
+        @selection-change=""
+        style="margin: 10px 0"
+        :data="adminuserinfo"
+        ref="reftable"
+      >
         <el-table-column type="selection" width="55" />
         <el-table-column type="index" width="50" label="#" />
         <el-table-column label="ID" width="50" prop="userid"></el-table-column>
@@ -29,22 +61,39 @@
         <el-table-column label="用户角色" prop="role"></el-table-column>
         <el-table-column label="操作">
           <template #="{ row }">
-            <el-button type="success" icon="User" @click="updateuserrole(row)">分配角色</el-button>
-            <el-button type="success" icon="Edit" @click="edituser(row)">编辑</el-button>
-            <el-popconfirm title="你确认要删除这个用户吗？" confirmButtonText="删除" cancelButtonText="取消" confirmButtonType="success"
-              cancelButtonType="text" icon="Delete" iconColor="#f90" @confirm="deleteuser(row)">
+            <el-button type="success" icon="User" @click="updateuserrole(row)">
+              分配角色
+            </el-button>
+            <el-button type="success" icon="Edit" @click="edituser(row)">
+              编辑
+            </el-button>
+            <el-popconfirm
+              title="你确认要删除这个用户吗？"
+              confirmButtonText="删除"
+              cancelButtonText="取消"
+              confirmButtonType="success"
+              cancelButtonType="text"
+              icon="Delete"
+              iconColor="#f90"
+              @confirm="deleteuser(row)"
+            >
               <template #reference>
                 <el-button type="success" icon="Delete">删除</el-button>
               </template>
             </el-popconfirm>
-
-
           </template>
         </el-table-column>
       </el-table>
-      <el-pagination style="margin-top: 10px;" @size-change="sizeChange" @current-change="getadminuser"
-        v-model:currentPage="pageNo" :page-sizes="[3, 6, 9]" :page-size="pageSize"
-        layout=" prev, pager, next, jumper,->, sizes,total" :total="total">
+      <el-pagination
+        style="margin-top: 10px"
+        @size-change="sizeChange"
+        @current-change="getadminuser"
+        v-model:currentPage="pageNo"
+        :page-sizes="[3, 6, 9]"
+        :page-size="pageSize"
+        layout=" prev, pager, next, jumper,->, sizes,total"
+        :total="total"
+      >
         :pager-count="7">
       </el-pagination>
     </el-card>
@@ -52,13 +101,28 @@
       <template #default>
         <el-form ref="formRef" :model="draweruserinfo" :rules="rules">
           <el-form-item label="用户名" label-width="100px" prop="username">
-            <el-input placeholder="请输入用户名" v-model="draweruserinfo.username"></el-input>
+            <el-input
+              placeholder="请输入用户名"
+              v-model="draweruserinfo.username"
+            ></el-input>
           </el-form-item>
-          <el-form-item label="密码" label-width="100px" prop="password" v-if="draweruserinfo.userid == 0 ? true : false">
-            <el-input placeholder="请输入密码" type="password" v-model="draweruserinfo.password"></el-input>
+          <el-form-item
+            label="密码"
+            label-width="100px"
+            prop="password"
+            v-if="draweruserinfo.userid == 0 ? true : false"
+          >
+            <el-input
+              placeholder="请输入密码"
+              type="password"
+              v-model="draweruserinfo.password"
+            ></el-input>
           </el-form-item>
           <el-form-item label="用户昵称" label-width="100px" prop="name">
-            <el-input placeholder="请输入昵称" v-model="draweruserinfo.name"></el-input>
+            <el-input
+              placeholder="请输入昵称"
+              v-model="draweruserinfo.name"
+            ></el-input>
           </el-form-item>
         </el-form>
       </template>
@@ -68,23 +132,42 @@
       </template>
     </el-drawer>
     <el-drawer title="分配角色" v-model="drawer1" size="30%">
-      <el-checkbox v-model="checkAll" :indeterminate="isIndeterminate" @change="handleCheckAllChange">全选</el-checkbox>
-      <el-checkbox-group v-model="rolechecked" @change="handleCheckedRoleChange">
-        <el-checkbox v-for="item in role " :key="item.id" :label="item.rolename"></el-checkbox>
+      <el-checkbox
+        v-model="checkAll"
+        :indeterminate="isIndeterminate"
+        @change="handleCheckAllChange"
+      >
+        全选
+      </el-checkbox>
+      <el-checkbox-group
+        v-model="rolechecked"
+        @change="handleCheckedRoleChange"
+      >
+        <el-checkbox
+          v-for="item in role"
+          :key="item.id"
+          :label="item.rolename"
+        ></el-checkbox>
       </el-checkbox-group>
       <template #footer>
         <el-button type="info" @click="drawer1 = false">取消</el-button>
         <el-button type="success" @click="setuserrole">保存</el-button>
       </template>
     </el-drawer>
-
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, reactive, nextTick } from 'vue';
-import { GetAdminUserInfo, AddNewUser, GetAllRoleInFO, SetUserRole, SearchUser, DeleteUser } from '@/api/acl/user'
-import { ElMessage } from 'element-plus';
+import { ref, onMounted, reactive, nextTick } from 'vue'
+import {
+  GetAdminUserInfo,
+  AddNewUser,
+  GetAllRoleInFO,
+  SetUserRole,
+  SearchUser,
+  DeleteUser,
+} from '@/api/acl/user'
+import { ElMessage } from 'element-plus'
 import useLayOutSettingStore from '@/store/modules/setting'
 let setting = useLayOutSettingStore()
 let pageNo = ref(1)
@@ -96,7 +179,7 @@ let draweruserinfo = reactive({
   userid: 0,
   username: '',
   name: '',
-  password: ''
+  password: '',
 })
 const reftable = ref()
 let userid = ref(0)
@@ -123,7 +206,7 @@ const adduser = () => {
     userid: 0,
     username: '',
     name: '',
-    password: ''
+    password: '',
   })
   nextTick(() => {
     formRef.value.clearValidate('username')
@@ -135,7 +218,7 @@ let formRef = ref()
 const validatorUsername = (rule: any, value: any, callBack: any) => {
   //用户名字|昵称,长度至少五位
   if (value.trim().length >= 5) {
-    callBack();
+    callBack()
   } else {
     callBack(new Error('用户名字至少五位'))
   }
@@ -143,7 +226,7 @@ const validatorUsername = (rule: any, value: any, callBack: any) => {
 const validatorpassword = (rule: any, value: any, callBack: any) => {
   //昵称,长度至少五位
   if (value.trim().length >= 5) {
-    callBack();
+    callBack()
   } else {
     callBack(new Error('密码至少五位'))
   }
@@ -151,7 +234,7 @@ const validatorpassword = (rule: any, value: any, callBack: any) => {
 const validatorname = (rule: any, value: any, callBack: any) => {
   //用户名字|昵称,长度至少五位
   if (value.trim().length > 0) {
-    callBack();
+    callBack()
   } else {
     callBack(new Error('请输入用户昵称'))
   }
@@ -171,7 +254,7 @@ const savefrom = async () => {
     drawer.value = false
     ElMessage({
       type: 'success',
-      message: result.message
+      message: result.message,
     })
     // if(draweruserinfo.userid==0){
     //   getadminuser()
@@ -179,13 +262,13 @@ const savefrom = async () => {
     //   getadminuser(pageNo.value)
     // }
     //旧方案，增加回到第一页，修改停留在此页，但会出现修改自身数据不会退出的bug
-    window.location.reload();
+    window.location.reload()
     //刷新页面，要不改自身数据会处于登录状态而token已经改变
-  } else if(result.code==500) {
+  } else if (result.code == 500) {
     drawer.value = false
     ElMessage({
       type: 'error',
-      message: result.message
+      message: result.message,
     })
     getadminuser()
   }
@@ -234,8 +317,6 @@ const updateuserrole = async (row: any) => {
       isIndeterminate.value = true
     }
   }
-
-
 }
 
 const handleCheckAllChange = () => {
@@ -251,12 +332,10 @@ const handleCheckedRoleChange = (value: string[]) => {
   isIndeterminate.value = checkedCount > 0 && checkedCount < role.value.length
 }
 const setuserrole = async () => {
-
   const attr = role.value.filter((item: any) => {
     return rolechecked.value.find((element: string) => {
       return element == item.rolename
-
-    });
+    })
   })
   const rolesvalue = attr.map((item: any) => {
     return item.id
@@ -266,19 +345,21 @@ const setuserrole = async () => {
     drawer1.value = false
     ElMessage({
       type: 'success',
-      message: '分配角色成功'
+      message: '分配角色成功',
     })
     window.location.reload()
   }
-
 }
 const searchuser = async () => {
-  const result = await SearchUser(pageNo.value, pageSize.value, serachvalue.value)
+  const result = await SearchUser(
+    pageNo.value,
+    pageSize.value,
+    serachvalue.value,
+  )
   if (result.code == 200) {
     adminuserinfo.value = result.data
     total.value = result.total
     serachvalue.value = ''
-
   }
 }
 const resetuser = () => {
@@ -294,7 +375,6 @@ const deletesomeuser = async () => {
     ElMessage({ type: 'success', message: '删除成功' })
     window.location.reload()
   }
-
 }
 const deleteuser = async (row: any) => {
   const useridattr = [row.userid]
@@ -302,11 +382,11 @@ const deleteuser = async (row: any) => {
   if (result.code == 200) {
     ElMessage({ type: 'success', message: result.message })
     window.location.reload()
-  }else if(result.code==500){
+  } else if (result.code == 500) {
     ElMessage({ type: 'error', message: result.message })
     window.location.reload()
-}
   }
+}
 </script>
 
 <style scoped></style>

@@ -15,10 +15,10 @@
     v-model="dark"
     size="large"
     inline-prompt
-    active-icon="Moon" 
+    active-icon="Moon"
     inactive-icon="Sunny"
     active-color="#07c160"
-    style="margin-left: 10px;"
+    style="margin-left: 10px"
     @change="changeDark"
   />
   <img
@@ -39,17 +39,17 @@
 <script setup lang="ts">
 import useLayOutSettingStore from '@/store/modules/setting'
 import useUserStore from '@/store/modules/user'
-import { nextTick ,ref, onMounted} from 'vue'
+import { nextTick, ref, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
-let dark=ref(false)
+let dark = ref(false)
 const $router = useRouter()
 const router = useRoute()
 let setting = useLayOutSettingStore()
 let UserStore = useUserStore()
-onMounted(()=>{
-  dark.value=UserStore.dark
-  let html = document.documentElement;
-  dark.value ? html.className = 'dark' : html.className = '';
+onMounted(() => {
+  dark.value = UserStore.dark
+  let html = document.documentElement
+  dark.value ? (html.className = 'dark') : (html.className = '')
 })
 const toRefresh = () => {
   setting.Refresh = !setting.Refresh
@@ -65,11 +65,11 @@ const fullscrren = () => {
   }
 }
 const changeDark = () => {
-    //获取HTML根节点
-    let html = document.documentElement;
-    //判断HTML标签是否有类名dark
-    UserStore.dark=dark.value
-    dark.value ? html.className = 'dark' : html.className = '';
+  //获取HTML根节点
+  let html = document.documentElement
+  //判断HTML标签是否有类名dark
+  UserStore.dark = dark.value
+  dark.value ? (html.className = 'dark') : (html.className = '')
 }
 const logout = () => {
   UserStore.logout()

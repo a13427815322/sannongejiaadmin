@@ -3,55 +3,107 @@
     <el-card>
       <el-form label-width="110" :model="spudetail">
         <el-form-item label="SPU名称 :">
-          <el-input placeholder="请你输入SPU名称" v-model="spudetail.spuname"></el-input>
+          <el-input
+            placeholder="请你输入SPU名称"
+            v-model="spudetail.spuname"
+          ></el-input>
         </el-form-item>
         <el-form-item label="SPU描述 :">
-          <el-input placeholder="请你输入SPU描述" type="textarea" v-model="spudetail.description"></el-input>
+          <el-input
+            placeholder="请你输入SPU描述"
+            type="textarea"
+            v-model="spudetail.description"
+          ></el-input>
         </el-form-item>
         <el-form-item label="SPU图片 :">
-          <el-upload v-model:file-list="fileList" :action="uploadUrl" list-type="picture-card" name="image"
-            :on-preview="handlePictureCardPreview" :on-remove="handleRemove">
+          <el-upload
+            v-model:file-list="fileList"
+            :action="uploadUrl"
+            list-type="picture-card"
+            name="image"
+            :on-preview="handlePictureCardPreview"
+            :on-remove="handleRemove"
+          >
             <el-icon>
               <Plus />
             </el-icon>
           </el-upload>
           <div></div>
           <el-dialog v-model="dialogVisible">
-            <img w-full :src="dialogImageUrl" alt="Preview Image" style="width: 100%; height: 100%" />
+            <img
+              w-full
+              :src="dialogImageUrl"
+              alt="Preview Image"
+              style="width: 100%; height: 100%"
+            />
           </el-dialog>
         </el-form-item>
         <el-form-item label="SPU销售属性 :">
           <el-select placeholder="请选择属性" v-model="values">
-            <el-option v-for="item in SaleAttr" :key="item.basesaleattrid" :label="item.saleattrname"
-              :value="item.basesaleattrid"></el-option>
+            <el-option
+              v-for="item in SaleAttr"
+              :key="item.basesaleattrid"
+              :label="item.saleattrname"
+              :value="item.basesaleattrid"
+            ></el-option>
           </el-select>
 
-          <el-button icon="Plus" @click="addsaleattrbuite" :disabled="values == ''">
+          <el-button
+            icon="Plus"
+            @click="addsaleattrbuite"
+            :disabled="values == ''"
+          >
             添加属性
           </el-button>
           <el-table border :data="spudetail.spuSaleAttrList">
             <el-table-column label="序号" type="index"></el-table-column>
-            <el-table-column label="销售属性名字" prop="saleattrname"></el-table-column>
+            <el-table-column
+              label="销售属性名字"
+              prop="saleattrname"
+            ></el-table-column>
             <el-table-column label="销售属性值">
               <template #="{ row, $index }" style="display: flex">
                 <div :key="$index" style="display: inline-block">
-                  <el-tag style="margin-left: 10px" type="success" size="small" closable
-                    v-for="(item, index) in row.saleattrvaluelist" @close="removevalue(index, row)" :key="index">
+                  <el-tag
+                    style="margin-left: 10px"
+                    type="success"
+                    size="small"
+                    closable
+                    v-for="(item, index) in row.saleattrvaluelist"
+                    @close="removevalue(index, row)"
+                    :key="index"
+                  >
                     {{ item }}
                   </el-tag>
                 </div>
                 <div style="display: inline-block; margin-left: 10px">
-                  <el-button v-if="!row.flag" type="success" size="small" @click="addsaleattrbuitevalue(row, $index)"
-                    icon="Plus"></el-button>
-                  <el-input v-else v-model="row.saleattr" placeholder="" size="normal"
-                    :ref="(vc: any) => (inputArr[$index] = vc)" clearable @blur="saveaddvalue(row)"></el-input>
+                  <el-button
+                    v-if="!row.flag"
+                    type="success"
+                    size="small"
+                    @click="addsaleattrbuitevalue(row, $index)"
+                    icon="Plus"
+                  ></el-button>
+                  <el-input
+                    v-else
+                    v-model="row.saleattr"
+                    placeholder=""
+                    size="normal"
+                    :ref="(vc: any) => (inputArr[$index] = vc)"
+                    clearable
+                    @blur="saveaddvalue(row)"
+                  ></el-input>
                 </div>
               </template>
             </el-table-column>
             <el-table-column label="操作">
               <template #="{ row }">
-                <el-popconfirm title="确定要删除这个属性值吗?" @confirm="deletevalue(row)" icon="Delete"
-                  confirm-button-type="success">
+                <el-popconfirm
+                  title="确定要删除这个属性值吗?"
+                  @confirm="deletevalue(row)"
+                  icon="Delete"
+                  confirm-button-type="success"
+                >
                   <template #reference>
                     <el-button icon="Delete" type="success"></el-button>
                   </template>
@@ -59,12 +111,16 @@
               </template>
             </el-table-column>
           </el-table>
-        </el-form-item> <el-button type="success" size="default" @click="save"
-          :disabled="!spudetail.spuSaleAttrList?.length">
+        </el-form-item>
+        <el-button
+          type="success"
+          size="default"
+          @click="save"
+          :disabled="!spudetail.spuSaleAttrList?.length"
+        >
           保存
         </el-button>
         <el-button type="info" size="default" @click="exit">取消</el-button>
-
       </el-form>
     </el-card>
   </div>

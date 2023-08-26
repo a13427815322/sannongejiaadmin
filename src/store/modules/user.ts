@@ -27,7 +27,7 @@ let useUserStore = defineStore('User', {
       avatar: '',
       dark: false,
       buttons: [],
-      userAsyncRoute:[]
+      userAsyncRoute: [],
     }
   },
   actions: {
@@ -44,10 +44,10 @@ let useUserStore = defineStore('User', {
       }
     },
     async userinfo() {
-      [...this.userAsyncRoute].forEach((route: any) => {
+      ;[...this.userAsyncRoute].forEach((route: any) => {
         router.removeRoute(route.name)
-        })
-      this.userAsyncRoute=[]
+      })
+      this.userAsyncRoute = []
       let result: uesrinfoResponse = await reqUserInfo()
       if (result.code === 200) {
         this.username = result.data[0].name
@@ -55,15 +55,15 @@ let useUserStore = defineStore('User', {
         this.buttons = result.data[0].buttons
         const userAsyncRoute = filterAsyncRoute(
           cloneDeep(asyncRoute),
-          result.data[0].routers
-        );
-          this.userAsyncRoute=userAsyncRoute
+          result.data[0].routers,
+        )
+        this.userAsyncRoute = userAsyncRoute
         // //菜单需要的数据整理完毕
-        this.router = [...constantRoute, ...userAsyncRoute,...anyRoute];
-          //目前路由器管理的只有常量路由:用户计算完毕异步路由、任意路由动态追加
-        [...userAsyncRoute,...anyRoute].forEach((route: any) => {
+        this.router = [...constantRoute, ...userAsyncRoute, ...anyRoute]
+        //目前路由器管理的只有常量路由:用户计算完毕异步路由、任意路由动态追加
+        ;[...userAsyncRoute, ...anyRoute].forEach((route: any) => {
           router.addRoute(route)
-          })
+        })
         return 'ok'
       } else {
         return Promise.reject(new Error(result.message))
@@ -73,12 +73,11 @@ let useUserStore = defineStore('User', {
       this.token = ''
       this.username = ''
       this.avatar = ''
-      this.buttons= []
-      this.dark=false
+      this.buttons = []
+      this.dark = false
       this.router = cloneDeep(constantRoute)
-   
+
       await REMOVE_TOKEN()
-   
     },
   },
   getters: {},
