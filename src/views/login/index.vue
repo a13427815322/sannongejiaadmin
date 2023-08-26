@@ -3,31 +3,17 @@
     <el-row :gutter="0">
       <el-col :span="12" :xs="0"></el-col>
       <el-col :span="12" :xs="24">
-        <el-form
-          class="login_from"
-          :model="user"
-          :rules="rules"
-          ref="loginFroms"
-        >
+        <el-form class="login_from" :model="user" :rules="rules" ref="loginFroms">
           <h1>HELLO</h1>
           <h2>欢迎来到三农e家</h2>
           <el-form-item prop="username">
             <el-input v-model="user.username" :prefix-icon="User"></el-input>
           </el-form-item>
           <el-form-item prop="password">
-            <el-input
-              v-model="user.password"
-              :prefix-icon="Lock"
-              show-password="true"
-            ></el-input>
+            <el-input v-model="user.password" :prefix-icon="Lock" show-password="true"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button
-              :loading="lodaing"
-              type="success"
-              class="login_btn"
-              @click="login"
-            >
+            <el-button :loading="lodaing" type="success" class="login_btn" @click="login">
               登录
             </el-button>
           </el-form-item>
@@ -66,9 +52,30 @@ const login = async () => {
   lodaing.value = true
   try {
     await userStore.userLogin(user)
+    await userStore.userinfo()
     if ($router.query) {
       let redirect: any = $router.query.redirect
-      router.push({ path: redirect || '/' })
+      if (redirect) {
+        const routess = router.getRoutes()
+        console.log(routess)
+        const isroute=routess.find(item => {
+          console.log(item.path,redirect)
+          console.log(item.path==redirect)
+          return item.path==redirect
+        }
+        )
+        console.log(isroute)
+        if (isroute) {
+          console.log(1)
+          router.push({ path: redirect || '/' })
+        } else {
+          router.push('/404')
+        }
+
+      } else {
+        router.push({ path: '/' })
+      }
+
     } else {
       router.push('/')
     }
@@ -95,10 +102,12 @@ const login = async () => {
   height: 100vh;
   background: url('@/assets/images/background.jpg') no-repeat;
   background-size: cover;
+
   h1 {
     color: white;
     font-size: 40px;
   }
+
   h2 {
     color: white;
     font-size: 20px;
@@ -112,6 +121,7 @@ const login = async () => {
     background: url('@/assets/images/login_form.png');
     padding: 40px;
     border-radius: 20px;
+
     .login_btn {
       width: 100%;
     }

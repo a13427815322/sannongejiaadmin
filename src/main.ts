@@ -13,6 +13,8 @@ import pinia from './store'
 //引入路由
 import router from './router'
 import './permission'
+import 'element-plus/theme-chalk/dark/css-vars.css'
+
 // import axios from 'axios'
 // axios({
 //   url: '/api/user/login',

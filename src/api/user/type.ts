@@ -11,6 +11,7 @@ export interface loginResponseData {
   data: dataTyoe
 }
 interface userinfo {
+  name:string
   userId: number
   avatar: String
   username: String
@@ -18,11 +19,12 @@ interface userinfo {
   desc: String
   roles: String[]
   buttons: String[]
-  routes: String[]
   token: String
+  routers:string[]
 }
 
 export interface uesrinfoResponse {
   code: number
-  data: userinfo
+  data: userinfo[]
+  message:string
 }

@@ -35,6 +35,7 @@ import logo from './logo/index.vue'
 import layoutmenu from './menu/index.vue'
 import useUserSrore from '@/store/modules/user'
 import Tarbar from './tarbar/index.vue'
+
 const menulist = useUserSrore().router
 </script>
 
@@ -64,7 +65,7 @@ const menulist = useUserSrore().router
   .layout_tarbar {
     width: calc(100% - $layout_menu_width);
     height: $layout_tabar_height;
-    background-color: $layout_tabar_background;
+
     position: fixed;
     top: 0;
     left: $layout_menu_width;
@@ -82,7 +83,7 @@ const menulist = useUserSrore().router
     position: absolute;
     top: $layout_tabar_height;
     left: $layout_menu_width;
-    background-color: $layout_content_background;
+
     padding: 20px;
     overflow: auto;
     color: #333333;

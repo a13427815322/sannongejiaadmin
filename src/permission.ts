@@ -4,6 +4,7 @@ import 'nprogress/nprogress.css'
 import useUserStore from './store/modules/user'
 import pinia from './store'
 import { setting } from './setting'
+import { REMOVE_TOKEN } from './utils/token'
 nprogress.configure({ showSpinner: false })
 let Userstore = useUserStore(pinia)
 
@@ -13,7 +14,7 @@ router.beforeEach(async (to, from, next) => {
   // console.log(to,from,next)
   nprogress.start()
 
-  console.log(Userstore.token)
+  //console.log(Userstore.token)
   if (Userstore.token) {
     if (to.path == '/login') {
       next({ path: '/' })
@@ -23,8 +24,11 @@ router.beforeEach(async (to, from, next) => {
       } else {
         try {
           await Userstore.userinfo()
-          next()
-        } catch (error) {}
+          next({...to})
+        } catch (error) {
+          REMOVE_TOKEN()
+          window.location.reload()
+        }
       }
     }
   } else {

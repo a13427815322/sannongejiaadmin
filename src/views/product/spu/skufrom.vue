@@ -86,7 +86,7 @@
         </el-form-item>
         <el-form-item label="" size="normal">
           <el-button type="success" @click="setskuindfo">保存</el-button>
-          <el-button type="success" @click="exit">取消</el-button>
+          <el-button type="info" @click="exit">取消</el-button>
         </el-form-item>
       </el-form>
     </el-card>

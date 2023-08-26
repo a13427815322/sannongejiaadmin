@@ -4,6 +4,9 @@ export interface userState {
   router: RouteRecordRaw[]
   username: String
   avatar: String
+  dark:boolean
+  buttons:String[]
+  userAsyncRoute:string[]
 }
 export interface attrState {
   propertyList: propertylist
