@@ -10,6 +10,6 @@ export const GetMenuInfo = () => {
 export const SetMenuInfo = (menu: any) => {
   return request.post<any, any>(API.SETMENUINFO, menu)
 }
-export const DeleteMenu = (id: number) => {
-  return request.post<any, any>(API.DELETEMENU, { id })
+export const DeleteMenu = (idattr: number[]) => {
+  return request.post<any, any>(API.DELETEMENU, idattr)
 }

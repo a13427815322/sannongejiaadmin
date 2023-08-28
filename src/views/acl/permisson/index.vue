@@ -5,12 +5,18 @@
       <el-table-column prop="code" label="权限值"></el-table-column>
       <el-table-column label="操作">
         <template #="{ row }">
-          <el-button type="success" @click="addmenu(row)" v-if="row.level < 3">
+          <el-button
+            type="success"
+            @click="addmenu(row)"
+            v-if="row.level < 3"
+            v-has="`btn.Permission.add`"
+          >
             添加菜单
           </el-button>
           <el-button
             type="success"
             @click="addmenu(row)"
+            v-has="`btn.Permission.add`"
             v-else
             :disabled="row.level == 4"
           >
@@ -20,6 +26,7 @@
             type="success"
             @click="editmenu(row)"
             :disabled="row.level == 1"
+            v-has="`btn.Permission.update`"
           >
             编辑
           </el-button>
@@ -34,7 +41,12 @@
             @confirm="deletemenu(row)"
           >
             <template #reference>
-              <el-button type="success" @click="" :disabled="row.level == 1">
+              <el-button
+                type="success"
+                @click=""
+                v-has="`btn.Permission.remove`"
+                :disabled="row.level == 1"
+              >
                 删除
               </el-button>
               >
@@ -70,6 +82,7 @@
 import { onMounted, ref } from 'vue'
 import { GetMenuInfo, SetMenuInfo, DeleteMenu } from '@/api/acl/perssion'
 import { ElMessage } from 'element-plus'
+import { da } from 'element-plus/es/locale/index.js'
 let perssioninfo = ref([])
 onMounted(() => {
   getmenuinfo()
@@ -117,9 +130,20 @@ const savemenuinfo = async () => {
     getmenuinfo()
   }
 }
+const getmenuid = (data: any, result: any) => {
+  result.push(data.id)
+  if (data.children && data.children.length != 0) {
+    data.children.forEach((item: any) => {
+      getmenuid(item, result)
+    })
+  }
+  return result
+}
 const deletemenu = async (row: any) => {
   console.log(row)
-  const result = await DeleteMenu(row.id)
+  const idattr = getmenuid(row, [])
+  // console.log(idattr)
+  const result = await DeleteMenu(idattr)
   if (result.code == 200) {
     ElMessage({
       type: 'success',

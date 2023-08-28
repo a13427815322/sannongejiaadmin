@@ -39,9 +39,12 @@
         icon="Delete"
         iconColor="#f90"
         @confirm="deletesomeuser"
+        v-has="`btn.User.add`"
       >
         <template #reference>
-          <el-button type="success">批量删除</el-button>
+          <el-button type="success" v-has="`btn.User.remove`">
+            批量删除
+          </el-button>
         </template>
       </el-popconfirm>
 
@@ -61,10 +64,20 @@
         <el-table-column label="用户角色" prop="role"></el-table-column>
         <el-table-column label="操作">
           <template #="{ row }">
-            <el-button type="success" icon="User" @click="updateuserrole(row)">
+            <el-button
+              type="success"
+              icon="User"
+              @click="updateuserrole(row)"
+              v-has="`btn.User.assgin`"
+            >
               分配角色
             </el-button>
-            <el-button type="success" icon="Edit" @click="edituser(row)">
+            <el-button
+              type="success"
+              icon="Edit"
+              @click="edituser(row)"
+              v-has="`btn.User.update`"
+            >
               编辑
             </el-button>
             <el-popconfirm
@@ -78,7 +91,13 @@
               @confirm="deleteuser(row)"
             >
               <template #reference>
-                <el-button type="success" icon="Delete">删除</el-button>
+                <el-button
+                  type="success"
+                  icon="Delete"
+                  v-has="`btn.User.remove`"
+                >
+                  删除
+                </el-button>
               </template>
             </el-popconfirm>
           </template>

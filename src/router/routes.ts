@@ -31,16 +31,16 @@ export const constantRoute = [
       icon: 'TurnOff',
     },
   },
-  {
-    path: '/screen',
-    component: () => import('@/views/screen/index.vue'),
-    name: 'Screen',
-    meta: {
-      name: '数据大屏',
-      hidden: false,
-      icon: 'DataAnalysis',
-    },
-  },
+  // {
+  //   path: '/screen',
+  //   component: () => import('@/views/screen/index.vue'),
+  //   name: 'Screen',
+  //   meta: {
+  //     name: '数据大屏',
+  //     hidden: false,
+  //     icon: 'DataAnalysis',
+  //   },
+  // },
 
   {
     path: '/404',

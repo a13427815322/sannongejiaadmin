@@ -9,6 +9,7 @@
           style="margin: 10px 0"
           @click="addspu"
           :disabled="!AttrStore.Selectvalue"
+          v-has="`btn.Spu.add`"
         >
           添加SPU
         </el-button>
@@ -27,17 +28,20 @@
                 color="#07c160"
                 title="增加sku"
                 @click="addsku(row)"
+                v-has="`btn.Spu.addsku`"
               ></el-button>
               <el-button
                 icon="Edit"
                 color="#07c160"
                 title="编辑spu"
+                v-has="`btn.Spu.update`"
                 @click="editspu(row)"
               ></el-button>
               <el-button
                 icon="View"
                 color="#07c160"
                 title="查看sku"
+                v-has="`btn.Spu.skus`"
                 @click="tolooksku(row)"
               ></el-button>
               <el-popconfirm
@@ -50,6 +54,7 @@
                     icon="Delete"
                     color="#07c160"
                     title="删除spu"
+                    v-has="`btn.Spu.delete`"
                   ></el-button>
                 </template>
               </el-popconfirm>

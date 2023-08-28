@@ -42,10 +42,12 @@
             <el-button
               :type="row.putaway == 0 ? 'success' : 'warning'"
               @click="showupdown(row)"
+              v-has="`btn.Sku.updown`"
               :icon="row.putaway == 0 ? 'Top' : 'Bottom'"
               :title="row.putaway == 0 ? '上架' : '下架'"
             ></el-button>
             <el-button
+              v-has="`btn.Sku.update`"
               type="success"
               @click="
                 ElMessage({ type: 'info', message: '该功能还在开发，敬请期待' })
@@ -55,16 +57,31 @@
             ></el-button>
             <el-button
               type="success"
+              v-has="`btn.Sku.detail`"
               @click="lookskuinfo(row)"
               icon="InfoFilled"
               title="SKU信息"
             ></el-button>
-            <el-button
-              type="success"
-              @click="delsku(row.id)"
+            <el-popconfirm
+              title="你是否要删除这个Sku"
+              confirmButtonText="删除"
+              cancelButtonText="取消"
+              confirmButtonType="success"
+              cancelButtonType="text"
               icon="Delete"
-              title="删除SKU"
-            ></el-button>
+              iconColor="#f90"
+              hideIcon="false"
+              @confirm="delsku(row.id)"
+            >
+              <template #reference>
+                <el-button
+                  type="success"
+                  icon="Delete"
+                  title="删除SKU"
+                  v-has="`btn.Sku.remove`"
+                ></el-button>
+              </template>
+            </el-popconfirm>
           </template>
         </el-table-column>
       </el-table>
@@ -93,7 +110,9 @@
       </el-row>
       <el-row style="margin-top: 5px">
         <el-col :span="10" style="margin-top: 5px">价格:</el-col>
-        <el-col :span="14" style="margin-top: 5px">{{ skuinfo.price }}</el-col>
+        <el-col :span="14" style="margin-top: 5px">
+          ￥{{ skuinfo.price }}
+        </el-col>
       </el-row>
       <el-row style="margin-top: 5px">
         <el-col :span="10" style="margin-top: 5px">数量:</el-col>

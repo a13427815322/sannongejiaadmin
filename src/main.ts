@@ -14,7 +14,7 @@ import pinia from './store'
 import router from './router'
 import './permission'
 import 'element-plus/theme-chalk/dark/css-vars.css'
-
+import { isHasButton } from './directive/has'
 // import axios from 'axios'
 // axios({
 //   url: '/api/user/login',
@@ -26,6 +26,7 @@ import 'element-plus/theme-chalk/dark/css-vars.css'
 // })
 //测试代码
 const app = createApp(App)
+isHasButton(app)
 app.use(globalComponent)
 app.use(router)
 app.use(pinia)

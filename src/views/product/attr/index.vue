@@ -13,6 +13,7 @@
         icon="Plus"
         :disabled="!AttrStore.Selectvalue"
         @click="add"
+        v-has="`btn.Attr.add`"
       >
         新增产品属性
       </el-button>
@@ -42,6 +43,7 @@
               icon="Edit"
               type="success"
               @click="edit(row)"
+              v-has="`btn.Attr.update`"
             ></el-button>
             <el-popconfirm
               title="确定要删除这个属性吗?"
@@ -50,7 +52,11 @@
               @confirm="delattribute(row.id)"
             >
               <template #reference>
-                <el-button icon="Delete" type="success"></el-button>
+                <el-button
+                  icon="Delete"
+                  type="success"
+                  v-has="`btn.Attr.remove`"
+                ></el-button>
               </template>
             </el-popconfirm>
           </template>

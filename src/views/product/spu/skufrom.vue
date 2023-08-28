@@ -159,6 +159,8 @@ const setectiondefaultimg = (row: any, selection: any) => {
     skudetail.skuimage = selection.imgurl
   } else if (row.length == 0) {
     skudetail.skuimage = ''
+  } else {
+    skudetail.skuimage = selection.imgurl
   }
 }
 const cellClass = (row: any) => {
@@ -217,6 +219,7 @@ defineExpose({ getskuinfo })
   height: 100px;
   margin-left: 38px;
 }
+
 ::v-deep .el-table .disabledCheck .cell .el-checkbox__inner {
   display: none !important;
 }

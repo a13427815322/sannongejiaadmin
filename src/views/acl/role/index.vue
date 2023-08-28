@@ -29,7 +29,12 @@
       </el-form>
     </el-card>
     <el-card shadow="always">
-      <el-button type="success" icon="Plus" @click="addrole()">
+      <el-button
+        type="success"
+        icon="Plus"
+        @click="addrole()"
+        v-has="`btn.Role.add`"
+      >
         添加角色
       </el-button>
       <el-table border style="margin: 10px 0" :data="roledetail">
@@ -38,10 +43,20 @@
         <el-table-column label="角色名称" prop="rolename" />
         <el-table-column fixed="right" label="操作" width="325px">
           <template #="{ row }">
-            <el-button type="success" icon="User" @click="givepower(row)">
+            <el-button
+              type="success"
+              icon="User"
+              @click="givepower(row)"
+              v-has="`btn.Role.assgin`"
+            >
               分配权限
             </el-button>
-            <el-button type="success" icon="Edit" @click="editrole(row)">
+            <el-button
+              type="success"
+              icon="Edit"
+              @click="editrole(row)"
+              v-has="`btn.Role.update`"
+            >
               编辑
             </el-button>
             <el-popconfirm
@@ -55,7 +70,13 @@
               @confirm="deleterole(row)"
             >
               <template #reference>
-                <el-button type="success" icon="Delete">删除</el-button>
+                <el-button
+                  type="success"
+                  icon="Delete"
+                  v-has="`btn.Role.remove`"
+                >
+                  删除
+                </el-button>
               </template>
             </el-popconfirm>
           </template>
