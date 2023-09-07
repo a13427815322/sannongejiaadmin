@@ -7,8 +7,8 @@
           display: flex;
           justify-content: space-between;
           align-items: center;
-        " 
-         @submit.native.prevent
+        "
+        @submit.native.prevent
       >
         <el-form-item label="角色搜索">
           <el-input
@@ -91,7 +91,7 @@
         :page-size="pageSize"
         layout=" prev, pager, next, jumper,->,sizes,total"
         :total="total"
-        v-if="!(roledetail.length>pageSize)"
+        v-if="!(roledetail.length > pageSize)"
       ></el-pagination>
     </el-card>
     <el-dialog
@@ -273,9 +273,7 @@ const savepower = async () => {
 }
 let searchrolevalue = ref('')
 const searchrole = async () => {
-  const result = await SearchRole(
-    searchrolevalue.value,
-  )
+  const result = await SearchRole(searchrolevalue.value)
   if (result.code == 200) {
     roledetail.value = result.data
     total.value = result.total

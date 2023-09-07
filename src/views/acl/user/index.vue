@@ -1,16 +1,27 @@
 <template>
   <div>
     <el-card style="margin: 10px 0">
-      <el-from :inline="true" style="
+      <el-from
+        :inline="true"
+        style="
           display: flex;
           justify-content: space-between;
           align-items: center;
-        ">
+        "
+      >
         <el-form-item label="用户名">
-          <el-input placeholder="请输入搜索用户名" style="width: 200px" v-model="serachvalue"></el-input>
+          <el-input
+            placeholder="请输入搜索用户名"
+            style="width: 200px"
+            v-model="serachvalue"
+          ></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="success" @click="searchuser" :disabled="!serachvalue">
+          <el-button
+            type="success"
+            @click="searchuser"
+            :disabled="!serachvalue"
+          >
             搜索
           </el-button>
           <el-button type="success" @click="resetuser">重置</el-button>
@@ -19,8 +30,17 @@
     </el-card>
     <el-card>
       <el-button type="success" @click="adduser">添加用户</el-button>
-      <el-popconfirm title="你确认要删除选中的用户吗？" confirmButtonText="删除" cancelButtonText="取消" confirmButtonType="success"
-        cancelButtonType="text" icon="Delete" iconColor="#f90" @confirm="deletesomeuser" v-has="`btn.User.add`">
+      <el-popconfirm
+        title="你确认要删除选中的用户吗？"
+        confirmButtonText="删除"
+        cancelButtonText="取消"
+        confirmButtonType="success"
+        cancelButtonType="text"
+        icon="Delete"
+        iconColor="#f90"
+        @confirm="deletesomeuser"
+        v-has="`btn.User.add`"
+      >
         <template #reference>
           <el-button type="success" v-has="`btn.User.remove`">
             批量删除
@@ -28,7 +48,14 @@
         </template>
       </el-popconfirm>
 
-      <el-table border stripe @selection-change="" style="margin: 10px 0" :data="adminuserinfo" ref="reftable">
+      <el-table
+        border
+        stripe
+        @selection-change=""
+        style="margin: 10px 0"
+        :data="adminuserinfo"
+        ref="reftable"
+      >
         <el-table-column type="selection" width="55" />
         <el-table-column type="index" width="50" label="#" />
         <el-table-column label="ID" width="50" prop="userid"></el-table-column>
@@ -37,16 +64,38 @@
         <el-table-column label="用户角色" prop="role"></el-table-column>
         <el-table-column label="操作">
           <template #="{ row }">
-            <el-button type="success" icon="User" @click="updateuserrole(row)" v-has="`btn.User.assgin`">
+            <el-button
+              type="success"
+              icon="User"
+              @click="updateuserrole(row)"
+              v-has="`btn.User.assgin`"
+            >
               分配角色
             </el-button>
-            <el-button type="success" icon="Edit" @click="edituser(row)" v-has="`btn.User.update`">
+            <el-button
+              type="success"
+              icon="Edit"
+              @click="edituser(row)"
+              v-has="`btn.User.update`"
+            >
               编辑
             </el-button>
-            <el-popconfirm title="你确认要删除这个用户吗？" confirmButtonText="删除" cancelButtonText="取消" confirmButtonType="success"
-              cancelButtonType="text" icon="Delete" iconColor="#f90" @confirm="deleteuser(row)">
+            <el-popconfirm
+              title="你确认要删除这个用户吗？"
+              confirmButtonText="删除"
+              cancelButtonText="取消"
+              confirmButtonType="success"
+              cancelButtonType="text"
+              icon="Delete"
+              iconColor="#f90"
+              @confirm="deleteuser(row)"
+            >
               <template #reference>
-                <el-button type="success" icon="Delete" v-has="`btn.User.remove`">
+                <el-button
+                  type="success"
+                  icon="Delete"
+                  v-has="`btn.User.remove`"
+                >
                   删除
                 </el-button>
               </template>
@@ -54,22 +103,44 @@
           </template>
         </el-table-column>
       </el-table>
-      <el-pagination style="margin-top: 10px" @size-change="sizeChange" @current-change="getadminuser"
-        v-model:currentPage="pageNo" :page-sizes="[3, 6, 9]" :page-size="pageSize"
-        layout=" prev, pager, next, jumper,->, sizes,total" :total="total" v-if="!(adminuserinfo.length>pageSize)">
-      </el-pagination>
+      <el-pagination
+        style="margin-top: 10px"
+        @size-change="sizeChange"
+        @current-change="getadminuser"
+        v-model:currentPage="pageNo"
+        :page-sizes="[3, 6, 9]"
+        :page-size="pageSize"
+        layout=" prev, pager, next, jumper,->, sizes,total"
+        :total="total"
+        v-if="!(adminuserinfo.length > pageSize)"
+      ></el-pagination>
     </el-card>
     <el-drawer title="添加用户" v-model="drawer" size="30%">
       <template #default>
         <el-form ref="formRef" :model="draweruserinfo" :rules="rules">
           <el-form-item label="用户名" label-width="100px" prop="username">
-            <el-input placeholder="请输入用户名" v-model="draweruserinfo.username"></el-input>
+            <el-input
+              placeholder="请输入用户名"
+              v-model="draweruserinfo.username"
+            ></el-input>
           </el-form-item>
-          <el-form-item label="密码" label-width="100px" prop="password" v-if="draweruserinfo.userid == 0 ? true : false">
-            <el-input placeholder="请输入密码" type="password" v-model="draweruserinfo.password"></el-input>
+          <el-form-item
+            label="密码"
+            label-width="100px"
+            prop="password"
+            v-if="draweruserinfo.userid == 0 ? true : false"
+          >
+            <el-input
+              placeholder="请输入密码"
+              type="password"
+              v-model="draweruserinfo.password"
+            ></el-input>
           </el-form-item>
           <el-form-item label="用户昵称" label-width="100px" prop="name">
-            <el-input placeholder="请输入昵称" v-model="draweruserinfo.name"></el-input>
+            <el-input
+              placeholder="请输入昵称"
+              v-model="draweruserinfo.name"
+            ></el-input>
           </el-form-item>
         </el-form>
       </template>
@@ -79,11 +150,22 @@
       </template>
     </el-drawer>
     <el-drawer title="分配角色" v-model="drawer1" size="30%">
-      <el-checkbox v-model="checkAll" :indeterminate="isIndeterminate" @change="handleCheckAllChange">
+      <el-checkbox
+        v-model="checkAll"
+        :indeterminate="isIndeterminate"
+        @change="handleCheckAllChange"
+      >
         全选
       </el-checkbox>
-      <el-checkbox-group v-model="rolechecked" @change="handleCheckedRoleChange">
-        <el-checkbox v-for="item in role" :key="item.id" :label="item.rolename"></el-checkbox>
+      <el-checkbox-group
+        v-model="rolechecked"
+        @change="handleCheckedRoleChange"
+      >
+        <el-checkbox
+          v-for="item in role"
+          :key="item.id"
+          :label="item.rolename"
+        ></el-checkbox>
       </el-checkbox-group>
       <template #footer>
         <el-button type="info" @click="drawer1 = false">取消</el-button>
@@ -288,9 +370,7 @@ const setuserrole = async () => {
   }
 }
 const searchuser = async () => {
-  const result = await SearchUser(
-    serachvalue.value,
-  )
+  const result = await SearchUser(serachvalue.value)
   if (result.code == 200) {
     adminuserinfo.value = result.data
     total.value = result.total
@@ -314,10 +394,9 @@ const deletesomeuser = async () => {
   } else {
     ElMessage({
       type: 'error',
-      message: '请选择你需要删除的用户'
+      message: '请选择你需要删除的用户',
     })
   }
-
 }
 const deleteuser = async (row: any) => {
   const useridattr = [row.userid]
@@ -330,7 +409,6 @@ const deleteuser = async (row: any) => {
     window.location.reload()
   }
 }
-
 </script>
 
 <style scoped></style>

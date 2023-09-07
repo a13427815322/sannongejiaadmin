@@ -10,10 +10,7 @@ enum API {
 export const GetAdminUserInfo = (pageNo: number, pageSize: number) => {
   return request.post<any, any>(API.GETADMINUSERINFO, { pageNo, pageSize })
 }
-export const SearchUser = (
-
-  searchvalue: string,
-) => {
+export const SearchUser = (searchvalue: string) => {
   return request.post<any, any>(API.SEARCHUSER, {
     searchvalue,
   })

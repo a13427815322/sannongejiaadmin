@@ -19,10 +19,7 @@ export const GetRolePower = (id: number) => {
 export const SetRolePower = (id: number, permission: any) => {
   return request.post<any, any>(API.SETROLEPOWER, { id, permission })
 }
-export const SearchRole = (
-
-  searchvalue: string,
-) => {
+export const SearchRole = (searchvalue: string) => {
   return request.post<any, any>(API.SEARCHROLE, {
     searchvalue,
   })

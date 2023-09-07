@@ -1,20 +1,15 @@
 <template>
   <div>
-   <SearchBox @searchinfo="SearchOrderfrom"></SearchBox>
-   <el-card>
-    1111
-   </el-card>
+    <SearchBox @searchinfo="SearchOrderfrom"></SearchBox>
+    <el-card>1111</el-card>
   </div>
 </template>
 
 <script setup lang="ts">
-import  SearchBox from '../seachbox/index.vue'
-const SearchOrderfrom=(search:string)=>{
-console.log(search,3)
+import SearchBox from '../seachbox/index.vue'
+const SearchOrderfrom = (search: string) => {
+  console.log(search, 3)
 }
-
 </script>
 
-<style scoped lang="scss">
-
-</style>
+<style scoped lang="scss"></style>

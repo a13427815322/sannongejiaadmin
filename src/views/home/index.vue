@@ -8,38 +8,53 @@
           <p class="subtitle">三农E家后台管理系统</p>
         </div>
       </div>
-      <hr style="opacity: 0.2;" />
+      <hr style="opacity: 0.2" />
       <div class="tongjibox">
-        <div class="sale"> <svg-icon class="svg" name="sale" fill="#07c160"></svg-icon>
+        <div class="sale">
+          <svg-icon class="svg" name="sale" fill="#07c160"></svg-icon>
           <div class="shujvbox">
             <div class="shujvtitle">总销售额</div>
-            <div class="shujvdetail"><span class="count">5000</span>
+            <div class="shujvdetail">
+              <span class="count">5000</span>
               <div class="ge">元</div>
             </div>
           </div>
         </div>
-        <div class="shop"> <svg-icon class="svg" name="shop" fill="#07c160"></svg-icon>
+        <div class="shop">
+          <svg-icon class="svg" name="shop" fill="#07c160"></svg-icon>
           <div class="shujvbox">
             <div class="shujvtitle">在销产品</div>
-            <div class="shujvdetail"><span class="count">22</span>
+            <div class="shujvdetail">
+              <span class="count">22</span>
               <div class="ge">个</div>
             </div>
           </div>
         </div>
-        <div class="orderfrom"> <svg-icon class="svg" name="orderfrom" fill="#07c160"></svg-icon>
+        <div class="orderfrom">
+          <svg-icon class="svg" name="orderfrom" fill="#07c160"></svg-icon>
           <div class="shujvbox">
             <div class="shujvtitle">日新增订单</div>
-            <div class="shujvdetail"><span class="count">22</span>
+            <div class="shujvdetail">
+              <span class="count">22</span>
               <div class="ge">个</div>
             </div>
           </div>
         </div>
-        <div class="addthing"> <svg-icon class="svg" name="addthing" fill="#07c160"></svg-icon>
+        <div class="addthing">
+          <svg-icon class="svg" name="addthing" fill="#07c160"></svg-icon>
           <div class="shujvbox">
             <div class="shujvtitle">较昨日新增</div>
-            <div class="shujvdetail"><span class="count">2.45%</span>
+            <div class="shujvdetail">
+              <span class="count">2.45%</span>
               <div class="ge">
-                <svg style="width: 35px;height:35px;margin-top: -10px;margin-left:-10px;">
+                <svg
+                  style="
+                    width: 35px;
+                    height: 35px;
+                    margin-top: -10px;
+                    margin-left: -10px;
+                  "
+                >
                   <use xlink:href="#icon-up"></use>
                 </svg>
               </div>
@@ -48,11 +63,11 @@
         </div>
       </div>
     </el-card>
-  <inventory></inventory>
-  <div class="targetbox">
-  <target></target>
-  <monthsale></monthsale>
-  </div>
+    <inventory></inventory>
+    <div class="targetbox">
+      <target></target>
+      <monthsale></monthsale>
+    </div>
   </div>
 </template>
 
@@ -140,10 +155,9 @@ import monthsale from './monthsale/index.vue'
         }
       }
     }
-
   }
 }
-.targetbox{
+.targetbox {
   width: 100%;
   display: flex;
 }

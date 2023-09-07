@@ -15,7 +15,7 @@ import router from './router'
 import './permission'
 import 'element-plus/theme-chalk/dark/css-vars.css'
 import { isHasButton } from './directive/has'
-import  dayjs  from 'dayjs'
+import dayjs from 'dayjs'
 // import axios from 'axios'
 // axios({
 //   url: '/api/user/login',
