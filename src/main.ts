@@ -15,6 +15,7 @@ import router from './router'
 import './permission'
 import 'element-plus/theme-chalk/dark/css-vars.css'
 import { isHasButton } from './directive/has'
+import  dayjs  from 'dayjs'
 // import axios from 'axios'
 // axios({
 //   url: '/api/user/login',
@@ -26,6 +27,7 @@ import { isHasButton } from './directive/has'
 // })
 //测试代码
 const app = createApp(App)
+app.config.globalProperties.$dayjs = dayjs
 isHasButton(app)
 app.use(globalComponent)
 app.use(router)

@@ -20,13 +20,10 @@ export const SetRolePower = (id: number, permission: any) => {
   return request.post<any, any>(API.SETROLEPOWER, { id, permission })
 }
 export const SearchRole = (
-  pageNo: number,
-  pageSize: number,
+
   searchvalue: string,
 ) => {
   return request.post<any, any>(API.SEARCHROLE, {
-    pageNo,
-    pageSize,
     searchvalue,
   })
 }

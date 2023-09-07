@@ -162,24 +162,24 @@ export const asyncRoute = [
           icon: 'Clock',
         },
       },
-      {
-        path: '/orderfrom/shipped',
-        component: () => import('@/views/orderfrom/shipped/index.vue'),
-        name: 'Shipped',
-        meta: {
-          name: '已发货订单',
-          icon: 'Box',
-        },
-      },
-      {
-        path: '/orderfrom/done',
-        component: () => import('@/views/orderfrom/done/index.vue'),
-        name: 'Done',
-        meta: {
-          name: '已完成订单',
-          icon: 'Check',
-        },
-      },
+      // {
+      //   path: '/orderfrom/shipped',
+      //   component: () => import('@/views/orderfrom/shipped/index.vue'),
+      //   name: 'Shipped',
+      //   meta: {
+      //     name: '已发货订单',
+      //     icon: 'Box',
+      //   },
+      // },
+      // {
+      //   path: '/orderfrom/done',
+      //   component: () => import('@/views/orderfrom/done/index.vue'),
+      //   name: 'Done',
+      //   meta: {
+      //     name: '已完成订单',
+      //     icon: 'Check',
+      //   },
+      // },
     ],
   },
 ]

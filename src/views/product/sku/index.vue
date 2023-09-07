@@ -189,7 +189,9 @@ const handleSizeChange = (val: number) => {
   getallskudetail()
 }
 const showupdown = async (row: any) => {
+  console.log(row.putaway)
   let putaway = Number(!row.putaway)
+  console.log(putaway)
   let result = await SkuPutAwayOrPutDown(row.id, putaway)
   if (result.code == 200) {
     row.putaway = putaway

@@ -11,13 +11,10 @@ export const GetAdminUserInfo = (pageNo: number, pageSize: number) => {
   return request.post<any, any>(API.GETADMINUSERINFO, { pageNo, pageSize })
 }
 export const SearchUser = (
-  pageNo: number,
-  pageSize: number,
+
   searchvalue: string,
 ) => {
   return request.post<any, any>(API.SEARCHUSER, {
-    pageNo,
-    pageSize,
     searchvalue,
   })
 }
