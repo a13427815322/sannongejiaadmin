@@ -99,7 +99,12 @@
       v-model="dialog"
       width="30%"
     >
-      <el-form :model="addrolevalue" ref="RefFrom" :rules="rules"  @submit.native.prevent>
+      <el-form
+        :model="addrolevalue"
+        ref="RefFrom"
+        :rules="rules"
+        @submit.native.prevent
+      >
         <el-form-item label="角色" prop="rolename">
           <el-input
             placeholder="请输入角色名称"
@@ -143,8 +148,8 @@ import {
 } from '@/api/acl/role'
 import { ElMessage } from 'element-plus'
 import useLayOutSettingStore from '@/store/modules/setting'
-import {roleinfo,addrolevaluetype} from '@/api/acl/role/type'
-import {menuinforespone} from '@/api/acl/perssion/type'
+import { roleinfo, addrolevaluetype } from '@/api/acl/role/type'
+import { menuinforespone } from '@/api/acl/perssion/type'
 let setting = useLayOutSettingStore()
 let pageNo = ref(1)
 let pageSize = ref(3)
@@ -192,7 +197,6 @@ const saverole = async () => {
   await RefFrom.value.validate()
   const result = await SetRole(addrolevalue.value)
   if (result.code == 200) {
-
     dialog.value = false
     ElMessage({
       type: 'success',
@@ -251,7 +255,10 @@ const givepower = async (row: roleinfo) => {
     drawer.value = true
   })
 }
-const filterSelectArr = (powerdetail:menuinforespone[], defaultchek:number[]) => {
+const filterSelectArr = (
+  powerdetail: menuinforespone[],
+  defaultchek: number[],
+) => {
   powerdetail.forEach((item: menuinforespone) => {
     if (item.select && item.level == 4) {
       defaultchek.push(item.id)
@@ -269,7 +276,6 @@ const savepower = async () => {
   let permissionId = arr.concat(arr1)
   const result = await SetRolePower(roleid.value, permissionId)
   if (result.code == 200) {
-   
     drawer.value = false
     ElMessage({
       type: 'success',

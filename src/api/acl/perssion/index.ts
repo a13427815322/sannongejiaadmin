@@ -1,5 +1,5 @@
 import request from '@/utils/require'
-import {menuinforesponetype,temaddmenu,Response} from './type'
+import { menuinforesponetype, temaddmenu, Response } from './type'
 enum API {
   GETMENUINFO = 'acl/getmenuinfo',
   SETMENUINFO = 'acl/setmenuinfo',

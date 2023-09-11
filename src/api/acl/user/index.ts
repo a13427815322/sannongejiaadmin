@@ -1,5 +1,10 @@
 import request from '@/utils/require'
-import {adminuserinforespone,Respone,draweruserinfotype,allroleinfotype} from './type'
+import {
+  adminuserinforespone,
+  Respone,
+  draweruserinfotype,
+  allroleinfotype,
+} from './type'
 enum API {
   GETADMINUSERINFO = 'acl/getadminuserinfo',
   ADDNEWUSER = 'acl/addnewuser',
@@ -9,7 +14,10 @@ enum API {
   DELETEUSER = 'acl/deleteuser',
 }
 export const GetAdminUserInfo = (pageNo: number, pageSize: number) => {
-  return request.post<any, adminuserinforespone>(API.GETADMINUSERINFO, { pageNo, pageSize })
+  return request.post<any, adminuserinforespone>(API.GETADMINUSERINFO, {
+    pageNo,
+    pageSize,
+  })
 }
 export const SearchUser = (searchvalue: string) => {
   return request.post<any, adminuserinforespone>(API.SEARCHUSER, {

@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-card style="margin: 10px 0">
-      <el-form :inline="true" class="searchbox" @submit.native.prevent >
+      <el-form :inline="true" class="searchbox" @submit.native.prevent>
         <el-form-item label="搜索">
           <el-input
             v-model="search"

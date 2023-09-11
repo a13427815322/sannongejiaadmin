@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-card>
-      <el-form label-width="110" :model="spudetail"    @submit.native.prevent>
+      <el-form label-width="110" :model="spudetail" @submit.native.prevent>
         <el-form-item label="SPU名称 :">
           <el-input
             placeholder="请你输入SPU名称"
@@ -141,10 +141,10 @@ import {
 let $emit = defineEmits(['exit'])
 const fileList = ref<UploadUserFile[]>([])
 const uploadUrl = 'http://localhost:3000/upload'
-import {saleattrListtype,spuSaleAttr,imagetype}from '@/api/product/type'
+import { saleattrListtype, spuSaleAttr, imagetype } from '@/api/product/type'
 const dialogImageUrl = ref('')
 const dialogVisible = ref(false)
-const saleattrList  = ref<saleattrListtype[]>([])
+const saleattrList = ref<saleattrListtype[]>([])
 let spudetail = ref<spudetaildata>({
   spuname: '',
   id: 0,
@@ -218,26 +218,26 @@ const removevalue = (index: number, row: spuSaleAttr) => {
 }
 const addsaleattrbuite = () => {
   SaleAttr.value.find((attr: saleattrListtype) => {
-    return attr.basesaleattrid ==Number(values.value) 
+    return attr.basesaleattrid == Number(values.value)
   })
   if (spudetail.value.spuSaleAttrList) {
     spudetail.value.spuSaleAttrList?.push(
-      (SaleAttr.value.find((attr: saleattrListtype) => {
-        return attr.basesaleattrid ==Number(values.value)
-      })as spuSaleAttr )
+      SaleAttr.value.find((attr: saleattrListtype) => {
+        return attr.basesaleattrid == Number(values.value)
+      }) as spuSaleAttr,
     )
     values.value = ''
   } else {
     console.log(SaleAttr.value)
     spudetail.value.spuSaleAttrList = [
-    (  SaleAttr.value.find((attr: saleattrListtype) => {
-        return attr.basesaleattrid == Number(values.value) 
-      })as spuSaleAttr),
+      SaleAttr.value.find((attr: saleattrListtype) => {
+        return attr.basesaleattrid == Number(values.value)
+      }) as spuSaleAttr,
     ]
     values.value = ''
   }
 }
-const deletevalue = (row:spuSaleAttr) => {
+const deletevalue = (row: spuSaleAttr) => {
   console.log(row.basesaleattrid)
   spudetail.value.spuSaleAttrList = spudetail.value.spuSaleAttrList?.filter(
     (attrlist) => {

@@ -4,7 +4,7 @@
       <el-col :span="12" :xs="0"></el-col>
       <el-col :span="12" :xs="24">
         <el-form
-        @submit.native.prevent
+          @submit.native.prevent
           class="login_from"
           :model="user"
           :rules="rules"

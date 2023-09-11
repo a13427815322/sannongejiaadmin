@@ -1,4 +1,4 @@
-export interface Respone{
-    code:number
-    message:string
+export interface Respone {
+  code: number
+  message: string
 }

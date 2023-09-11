@@ -13,7 +13,7 @@
 import { GetKunchun } from '@/api/home'
 import * as echarts from 'echarts'
 import { ref, onMounted } from 'vue'
-import {kunchun} from '@/api/home/type'
+import { kunchun } from '@/api/home/type'
 let inventory = ref()
 onMounted(async () => {
   await getkuchun()

@@ -98,7 +98,7 @@
     </el-card>
     <el-drawer v-model="drawer" title="修改订单信息">
       <template #default>
-        <el-form label-width="100px"  @submit.native.prevent>
+        <el-form label-width="100px" @submit.native.prevent>
           <el-form-item label="订单id：">
             <el-input v-model="temdrawer.dingdanid" :disabled="true"></el-input>
           </el-form-item>
@@ -194,7 +194,7 @@ import {
   SearchOrderFromInfo,
 } from '@/api/orderfrom/pending'
 import { ElMessage } from 'element-plus'
-import {orderfromtype} from '@/api/orderfrom/type'
+import { orderfromtype } from '@/api/orderfrom/type'
 let reftable = ref()
 const { proxy } = getCurrentInstance() as ComponentInternalInstance
 let pageNO = ref(1)
@@ -203,18 +203,17 @@ let dingdandetail = ref<orderfromtype[]>([])
 let total = ref(0)
 let drawer = ref(false)
 let temdrawer = ref<orderfromtype>({
-  adress:'',
-    cjtime:'',
-    dingdanid:0,
-    fahuotime:'',
-    fukuantime:'',
-    phone:'',
-    shopcart:[],
-    sjr:'',
-    status:0,
-    _id:''
-}
-)
+  adress: '',
+  cjtime: '',
+  dingdanid: 0,
+  fahuotime: '',
+  fukuantime: '',
+  phone: '',
+  shopcart: [],
+  sjr: '',
+  status: 0,
+  _id: '',
+})
 let drawer1 = ref(false)
 const getdingdandetail = async (paper = 1) => {
   pageNO.value = paper

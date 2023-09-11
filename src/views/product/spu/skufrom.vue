@@ -1,7 +1,12 @@
 <template>
   <div>
     <el-card shadow="always">
-      <el-form label-width="100px" size="normal" :model="skudetail"  @submit.native.prevent>
+      <el-form
+        label-width="100px"
+        size="normal"
+        :model="skudetail"
+        @submit.native.prevent
+      >
         <el-form-item label="SKU名称">
           <el-input
             placeholder="请输入SKU名称"
@@ -95,7 +100,14 @@
 
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
-import { skuplatformattribute,skusaleattrvalue,imagetype,skudetailtype,spuSaleAttr,platformattributedatatype } from '@/api/product/type'
+import {
+  skuplatformattribute,
+  skusaleattrvalue,
+  imagetype,
+  skudetailtype,
+  spuSaleAttr,
+  platformattributedatatype,
+} from '@/api/product/type'
 
 import {
   GeteExistingattribute,
@@ -119,8 +131,8 @@ const skudetail = reactive<skudetailtype>({
 const exit = () => {
   $emit('exit')
 }
-let ExistingattributeList= ref<spuSaleAttr[]>([])
-let platformattributList= ref<platformattributedatatype[]>([])
+let ExistingattributeList = ref<spuSaleAttr[]>([])
+let platformattributList = ref<platformattributedatatype[]>([])
 let SpuImageList = ref<imagetype[]>([])
 const getskuinfo = async (Selectvalue: number, spuid: number) => {
   // console.log(Selectvalue,spuid)
@@ -134,16 +146,16 @@ const getskuinfo = async (Selectvalue: number, spuid: number) => {
 }
 const table = ref()
 const setdefaultimg = (row: imagetype) => {
-  SpuImageList.value.forEach((item:imagetype) => {
+  SpuImageList.value.forEach((item: imagetype) => {
     table.value.toggleRowSelection(item, false)
   })
   //选中的图片才勾选
   table.value.toggleRowSelection(row, true)
   skudetail.skuimage = row.imgurl
 }
-const setectiondefaultimg = (row:imagetype[], selection: imagetype) => {
+const setectiondefaultimg = (row: imagetype[], selection: imagetype) => {
   if (row.length > 1) {
-    row = row.filter((item:imagetype) => {
+    row = row.filter((item: imagetype) => {
       return item.id == selection.id
     })
     SpuImageList.value.forEach((item: imagetype) => {
@@ -167,19 +179,24 @@ const setskuindfo = async () => {
   let attribute = ExistingattributeList.value.filter((item: spuSaleAttr) => {
     return item.hasOwnProperty('platformattributidandvalue')
   })
-  let platformattribut = platformattributList.value.filter((item: platformattributedatatype) => {
-    return item.hasOwnProperty('platformattributidandvalue')
-  })
-  skudetail.skusaleattrvalueList = attribute.reduce((prev: skusaleattrvalue[], next:any) => {
-    let [id, saleattrname] = next.platformattributidandvalue.split(':')
-    prev.push({
-      id,
-      saleattrname,
-    })
-    return prev
-  }, [])
+  let platformattribut = platformattributList.value.filter(
+    (item: platformattributedatatype) => {
+      return item.hasOwnProperty('platformattributidandvalue')
+    },
+  )
+  skudetail.skusaleattrvalueList = attribute.reduce(
+    (prev: skusaleattrvalue[], next: any) => {
+      let [id, saleattrname] = next.platformattributidandvalue.split(':')
+      prev.push({
+        id,
+        saleattrname,
+      })
+      return prev
+    },
+    [],
+  )
   skudetail.skuplatformattributeList = platformattribut.reduce(
-    (prev:skuplatformattribute[], next: any) => {
+    (prev: skuplatformattribute[], next: any) => {
       let [id, platformattrname] = next.platformattributidandvalue.split(':')
       prev.push({
         id,

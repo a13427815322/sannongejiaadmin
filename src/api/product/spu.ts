@@ -1,5 +1,12 @@
 import request from '@/utils/require'
-import {skudetailresponetype,imagetype, Respone,spudetailtype ,saleattrListtype, Existingattributeresponetepe} from './type'
+import {
+  skudetailresponetype,
+  imagetype,
+  Respone,
+  spudetailtype,
+  saleattrListtype,
+  Existingattributeresponetepe,
+} from './type'
 enum API {
   GETSPUDETAIL = 'product/getspudetail',
   GETSALEATTR = 'product/getsaleattr',
@@ -22,11 +29,14 @@ export const GetSpuDetail = (
   })
 }
 export const GetSaleattr = () => {
-  return request.get<any,saleattrListtype[]>(API.GETSALEATTR)
+  return request.get<any, saleattrListtype[]>(API.GETSALEATTR)
 }
 
 export const GeteExistingattribute = (spuid: number) => {
-  return request.post<any, Existingattributeresponetepe>(API.GETEXISTINGATTRIBUTE, { spuid })
+  return request.post<any, Existingattributeresponetepe>(
+    API.GETEXISTINGATTRIBUTE,
+    { spuid },
+  )
 }
 export const SetSpuDetail = (spudetail: any) => {
   return request.post<any, Respone>(API.SETSPUDETAIL, spudetail)

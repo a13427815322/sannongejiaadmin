@@ -40,7 +40,6 @@ import 'echarts-liquidfill'
 let target = ref()
 
 onMounted(async () => {
-
   let mychart = echarts.init(target.value)
   mychart.setOption({
     title: {
@@ -75,7 +74,6 @@ onMounted(async () => {
     },
   })
 })
-
 </script>
 
 <style scoped></style>

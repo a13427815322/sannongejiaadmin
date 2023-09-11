@@ -2,7 +2,7 @@
   <div>
     <el-card style="margin: 10px 0">
       <el-form
-      @submit.native.prevent
+        @submit.native.prevent
         :inline="true"
         style="
           display: flex;
@@ -118,7 +118,12 @@
     </el-card>
     <el-drawer title="添加用户" v-model="drawer" size="30%">
       <template #default>
-        <el-form ref="formRef" :model="draweruserinfo" :rules="rules"  @submit.native.prevent>
+        <el-form
+          ref="formRef"
+          :model="draweruserinfo"
+          :rules="rules"
+          @submit.native.prevent
+        >
           <el-form-item label="用户名" label-width="100px" prop="username">
             <el-input
               placeholder="请输入用户名"
@@ -202,7 +207,11 @@ let draweruserinfo = reactive<draweruserinfotype>({
 })
 const reftable = ref()
 let userid = ref(0)
-import {adminuserinfotype,draweruserinfotype,roleinfo} from '@/api/acl/user/type'
+import {
+  adminuserinfotype,
+  draweruserinfotype,
+  roleinfo,
+} from '@/api/acl/user/type'
 onMounted(() => {
   getadminuser()
 })
@@ -315,7 +324,7 @@ const role = ref<roleinfo[]>([])
 const updateuserrole = async (row: adminuserinfotype) => {
   userid.value = row.userid
   if (row.roles) {
-    rolechecked.value = (row.role as string[])
+    rolechecked.value = row.role as string[]
   } else {
     rolechecked.value = []
   }

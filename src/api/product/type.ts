@@ -1,45 +1,45 @@
-export interface Respone{
-  code:number
-  message:string
+export interface Respone {
+  code: number
+  message: string
 }
-export interface propertydatatype extends Respone{
-  data:propertytype[]
+export interface propertydatatype extends Respone {
+  data: propertytype[]
 }
-export interface propertytype{
-  id:number,
-  name:string
+export interface propertytype {
+  id: number
+  name: string
 }
-export interface platformattributetype extends Respone{
-  data:platformattributedatatype[]
+export interface platformattributetype extends Respone {
+  data: platformattributedatatype[]
 }
 export interface platformattributedatatype {
-  id:number
-  name:string
-  propertyid:number
-  value:valuetype[]
-  platformattributidandvalue?:string
+  id: number
+  name: string
+  propertyid: number
+  value: valuetype[]
+  platformattributidandvalue?: string
 }
-export interface valuetype{
-  flag:boolean
-  valuename:string
+export interface valuetype {
+  flag: boolean
+  valuename: string
 }
-export interface imagetype{
-  id:number
-  spuid:number
-  imagename:string
-  imgurl:string
+export interface imagetype {
+  id: number
+  spuid: number
+  imagename: string
+  imgurl: string
 }
 export interface spudetailtype {
   code: number
   data: spudetaildata[]
   message: string
 }
-export interface saleattrListtype{
+export interface saleattrListtype {
   basesaleattrid: number
   saleattrname: string
 }
-export interface Existingattributeresponetepe extends Respone{
-data:spuSaleAttr[]
+export interface Existingattributeresponetepe extends Respone {
+  data: spuSaleAttr[]
 }
 export interface spudetaildata {
   description: string
@@ -48,7 +48,7 @@ export interface spudetaildata {
   spuname: string
   spuImageList?: spuimage[]
   spuSaleAttrList?: spuSaleAttr[]
-  total_count?:number
+  total_count?: number
 }
 export interface spuSaleAttr {
   id?: number
@@ -56,9 +56,9 @@ export interface spuSaleAttr {
   basesaleattrid: number
   saleattrname?: string
   saleattrvaluelist: string[]
-  flag?:boolean
-  platformattributidandvalue?:string
-  saleattr:string
+  flag?: boolean
+  platformattributidandvalue?: string
+  saleattr: string
 }
 interface spuimage {
   id?: number
@@ -77,9 +77,9 @@ export interface skudetailtype {
   skuplatformattributeList: skuplatformattribute[]
   skuimage: string
 }
-export interface skudetailresponetype extends Respone{
-  data:skudetailtype[]
-  total?:number
+export interface skudetailresponetype extends Respone {
+  data: skudetailtype[]
+  total?: number
 }
 export interface skusaleattrvalue {
   id: number

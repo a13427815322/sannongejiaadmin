@@ -56,7 +56,7 @@
       </el-table-column>
     </el-table>
     <el-dialog v-model="dialog">
-      <el-form  @submit.native.prevent>
+      <el-form @submit.native.prevent>
         <el-form-item label="名称">
           <el-input
             v-model="temaddmenu.name"
@@ -82,8 +82,8 @@
 import { onMounted, ref } from 'vue'
 import { GetMenuInfo, SetMenuInfo, DeleteMenu } from '@/api/acl/perssion'
 import { ElMessage } from 'element-plus'
-import {menuinforespone} from '@/api/acl/perssion/type'
-let perssioninfo= ref<menuinforespone> ()
+import { menuinforespone } from '@/api/acl/perssion/type'
+let perssioninfo = ref<menuinforespone>()
 onMounted(() => {
   getmenuinfo()
 })
@@ -98,10 +98,10 @@ let temaddmenu = ref({
   pid: 0,
   name: '',
   code: '',
-  level:0
+  level: 0,
 })
 let dialog = ref(false)
-const addmenu = (row:menuinforespone) => {
+const addmenu = (row: menuinforespone) => {
   Object.assign(temaddmenu.value, {
     id: 0,
     pid: row.id,
@@ -117,7 +117,7 @@ const editmenu = (row: menuinforespone) => {
     pid: row.pid,
     name: row.name,
     code: row.code,
-    level:row.level
+    level: row.level,
   })
   dialog.value = true
 }

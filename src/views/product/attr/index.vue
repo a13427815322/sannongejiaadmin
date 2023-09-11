@@ -69,7 +69,7 @@
       :body-style="{ padding: '20px' }"
       v-if="addvalue == 1"
     >
-      <el-form  @submit.native.prevent>
+      <el-form @submit.native.prevent>
         <el-form-item label="属性名称" required>
           <el-input
             placeholder="请输入属性名称"
@@ -148,7 +148,7 @@ import {
 import useAttrStore from '@/store/modules/attr'
 import { ref, reactive, nextTick } from 'vue'
 import { ElMessage } from 'element-plus'
-import {platformattributedatatype,valuetype}from '@/api/product/type'
+import { platformattributedatatype, valuetype } from '@/api/product/type'
 // 记录选择了哪个产品分类
 let AttrStore = useAttrStore()
 onMounted(() => {
@@ -161,7 +161,6 @@ const getpropertyList = async () => {
     // 调用接口，返回产品分类
     AttrStore.propertyList = propertyList
     // 把propertyList存进pina仓库
-  
   } catch (error) {
     console.error('获取属性信息时出错:', error)
   }
@@ -197,7 +196,7 @@ const add = () => {
   addvalue.value = 1
   // 控制是否出现属性值添加或修改界面
 }
-const edit = (row:platformattributedatatype) => {
+const edit = (row: platformattributedatatype) => {
   Object.assign(attribute, row)
   addvalue.value = 1
   // 控制是否出现属性值添加或修改界面
@@ -240,7 +239,7 @@ const attributeaddvalue = () => {
   })
 }
 
-const toolook = ($index: number, row:valuetype) => {
+const toolook = ($index: number, row: valuetype) => {
   // 在失去焦点的情况下检查数据
   //非法情况1
   if (row.valuename.trim() == '') {
