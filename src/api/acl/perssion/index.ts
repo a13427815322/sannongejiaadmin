@@ -1,15 +1,16 @@
 import request from '@/utils/require'
+import {menuinforesponetype,temaddmenu,Response} from './type'
 enum API {
   GETMENUINFO = 'acl/getmenuinfo',
   SETMENUINFO = 'acl/setmenuinfo',
   DELETEMENU = 'acl/deletemenu',
 }
 export const GetMenuInfo = () => {
-  return request.get<any, any>(API.GETMENUINFO)
+  return request.get<any, menuinforesponetype>(API.GETMENUINFO)
 }
-export const SetMenuInfo = (menu: any) => {
-  return request.post<any, any>(API.SETMENUINFO, menu)
+export const SetMenuInfo = (menu: temaddmenu) => {
+  return request.post<any, Response>(API.SETMENUINFO, menu)
 }
 export const DeleteMenu = (idattr: number[]) => {
-  return request.post<any, any>(API.DELETEMENU, idattr)
+  return request.post<any, Response>(API.DELETEMENU, idattr)
 }

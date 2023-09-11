@@ -34,7 +34,6 @@ const getpropertyList = async () => {
     // 调用接口，返回产品分类
     AttrStore.propertyList = propertyList
     // 把propertyList存进pina仓库
-    console.log(propertyList)
   } catch (error) {
     console.error('获取属性信息时出错:', error)
   }

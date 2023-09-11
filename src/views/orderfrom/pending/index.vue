@@ -98,7 +98,7 @@
     </el-card>
     <el-drawer v-model="drawer" title="修改订单信息">
       <template #default>
-        <el-form label-width="100px">
+        <el-form label-width="100px"  @submit.native.prevent>
           <el-form-item label="订单id：">
             <el-input v-model="temdrawer.dingdanid" :disabled="true"></el-input>
           </el-form-item>
@@ -194,14 +194,27 @@ import {
   SearchOrderFromInfo,
 } from '@/api/orderfrom/pending'
 import { ElMessage } from 'element-plus'
+import {orderfromtype} from '@/api/orderfrom/type'
 let reftable = ref()
 const { proxy } = getCurrentInstance() as ComponentInternalInstance
 let pageNO = ref(1)
 let pageSize = ref(3)
-let dingdandetail = ref([])
+let dingdandetail = ref<orderfromtype[]>([])
 let total = ref(0)
 let drawer = ref(false)
-let temdrawer = ref<any>({})
+let temdrawer = ref<orderfromtype>({
+  adress:'',
+    cjtime:'',
+    dingdanid:0,
+    fahuotime:'',
+    fukuantime:'',
+    phone:'',
+    shopcart:[],
+    sjr:'',
+    status:0,
+    _id:''
+}
+)
 let drawer1 = ref(false)
 const getdingdandetail = async (paper = 1) => {
   pageNO.value = paper
@@ -230,7 +243,7 @@ const sizeChange = (val: number) => {
   pageSize.value = val
   getdingdandetail()
 }
-const updateorderfrom = (row: any) => {
+const updateorderfrom = (row: orderfromtype) => {
   Object.assign(temdrawer.value, row)
   drawer.value = true
 }
@@ -247,7 +260,7 @@ const saveorderfrom = async () => {
 }
 const batchdelivery = () => {
   const a = reftable.value.getSelectionRows()
-  const idattr = a.map((item: any) => {
+  const idattr = a.map((item: orderfromtype) => {
     return item.dingdanid
   })
   if (idattr.length > 0) {
@@ -261,7 +274,6 @@ const batchdelivery = () => {
 }
 
 const delivergoods = async (idattr: number[]) => {
-  console.log(idattr)
   const result = await DeliverGoods(idattr)
   if (result.code == 200) {
     ElMessage({
@@ -275,7 +287,7 @@ const delivergoods = async (idattr: number[]) => {
     }
   }
 }
-const lookoutdetail = (row: any) => {
+const lookoutdetail = (row: orderfromtype) => {
   Object.assign(temdrawer.value, row)
   drawer1.value = true
 }

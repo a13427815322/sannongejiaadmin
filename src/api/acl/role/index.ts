@@ -1,4 +1,5 @@
 import request from '@/utils/require'
+import { roleinforesponetype,Response,addrolevaluetype ,rolepowerresponetype} from './type'
 enum API {
   GETROLEINFO = 'acl/getroleinfo',
   SETROLE = 'acl/setrole',
@@ -8,22 +9,22 @@ enum API {
   DELETEROLE = 'acl/deleterole',
 }
 export const GetRoleInfo = (pageNo: number, pageSize: number) => {
-  return request.post<any, any>(API.GETROLEINFO, { pageNo, pageSize })
+  return request.post<any, roleinforesponetype>(API.GETROLEINFO, { pageNo, pageSize })
 }
-export const SetRole = (addrolevalue: any) => {
-  return request.post<any, any>(API.SETROLE, addrolevalue)
+export const SetRole = (addrolevalue: addrolevaluetype) => {
+  return request.post<any, Response>(API.SETROLE, addrolevalue)
 }
 export const GetRolePower = (id: number) => {
-  return request.post<any, any>(API.GETROLEPOWER, { id })
+  return request.post<any, rolepowerresponetype>(API.GETROLEPOWER, { id })
 }
-export const SetRolePower = (id: number, permission: any) => {
-  return request.post<any, any>(API.SETROLEPOWER, { id, permission })
+export const SetRolePower = (id: number, permission:number) => {
+  return request.post<any, Response>(API.SETROLEPOWER, { id, permission })
 }
 export const SearchRole = (searchvalue: string) => {
-  return request.post<any, any>(API.SEARCHROLE, {
+  return request.post<any, roleinforesponetype>(API.SEARCHROLE, {
     searchvalue,
   })
 }
 export const DeleteRole = (id: number) => {
-  return request.post<any, any>(API.DELETEROLE, { id })
+  return request.post<any,Response>(API.DELETEROLE, { id })
 }

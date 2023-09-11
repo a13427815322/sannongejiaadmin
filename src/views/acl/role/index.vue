@@ -99,7 +99,7 @@
       v-model="dialog"
       width="30%"
     >
-      <el-form :model="addrolevalue" ref="RefFrom" :rules="rules">
+      <el-form :model="addrolevalue" ref="RefFrom" :rules="rules"  @submit.native.prevent>
         <el-form-item label="角色" prop="rolename">
           <el-input
             placeholder="请输入角色名称"
@@ -143,19 +143,22 @@ import {
 } from '@/api/acl/role'
 import { ElMessage } from 'element-plus'
 import useLayOutSettingStore from '@/store/modules/setting'
+import {roleinfo,addrolevaluetype} from '@/api/acl/role/type'
+import {menuinforespone} from '@/api/acl/perssion/type'
 let setting = useLayOutSettingStore()
 let pageNo = ref(1)
 let pageSize = ref(3)
-let roledetail = ref([])
+let roledetail = ref<roleinfo[]>([])
 let total = ref(0)
 let dialog = ref(false)
 let RefFrom = ref()
-let addrolevalue = ref({
+let addrolevalue = ref<addrolevaluetype>({
   id: 0,
   rolename: '',
 })
 let drawer = ref(false)
 const tree = ref()
+// @ts-ignore
 const lookrolename = (rule: any, value: any, callback: any) => {
   if (value.trim().length >= 2) {
     callback()
@@ -189,6 +192,7 @@ const saverole = async () => {
   await RefFrom.value.validate()
   const result = await SetRole(addrolevalue.value)
   if (result.code == 200) {
+
     dialog.value = false
     ElMessage({
       type: 'success',
@@ -216,7 +220,8 @@ const sizeChange = (val: number) => {
   pageSize.value = val
   getroleinfo()
 }
-const editrole = (row: any) => {
+const editrole = (row: roleinfo) => {
+  console.log(row)
   Object.assign(addrolevalue.value, {
     id: row.id,
     rolename: row.rolename,
@@ -231,13 +236,14 @@ const defaultProps = {
   children: 'children',
   label: 'name',
 }
-let defaultchek = ref([])
+let defaultchek = ref<number[]>([])
 let roleid = ref(0)
-const givepower = async (row: any) => {
+const givepower = async (row: roleinfo) => {
   defaultchek.value = []
   roleid.value = row.id
   const result = await GetRolePower(row.id)
   if (result.code == 200) {
+    console.log(result)
     powerdetail.value = result.data
     defaultchek.value = filterSelectArr(powerdetail.value, [])
   }
@@ -245,8 +251,8 @@ const givepower = async (row: any) => {
     drawer.value = true
   })
 }
-const filterSelectArr = (powerdetail: any, defaultchek: any) => {
-  powerdetail.forEach((item: any) => {
+const filterSelectArr = (powerdetail:menuinforespone[], defaultchek:number[]) => {
+  powerdetail.forEach((item: menuinforespone) => {
     if (item.select && item.level == 4) {
       defaultchek.push(item.id)
     }
@@ -263,6 +269,7 @@ const savepower = async () => {
   let permissionId = arr.concat(arr1)
   const result = await SetRolePower(roleid.value, permissionId)
   if (result.code == 200) {
+   
     drawer.value = false
     ElMessage({
       type: 'success',
@@ -283,7 +290,7 @@ const searchrole = async () => {
 const resetrole = () => {
   setting.Refresh = !setting.Refresh
 }
-const deleterole = async (row: any) => {
+const deleterole = async (row: roleinfo) => {
   const result = await DeleteRole(row.id)
   if (result.code == 200) {
     ElMessage({ type: 'success', message: result.message })

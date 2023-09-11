@@ -69,7 +69,7 @@
       :body-style="{ padding: '20px' }"
       v-if="addvalue == 1"
     >
-      <el-from>
+      <el-form  @submit.native.prevent>
         <el-form-item label="属性名称" required>
           <el-input
             placeholder="请输入属性名称"
@@ -78,7 +78,7 @@
             v-model="attribute.name"
           ></el-input>
         </el-form-item>
-      </el-from>
+      </el-form>
       <el-button
         type="success"
         icon="Plus"
@@ -148,7 +148,7 @@ import {
 import useAttrStore from '@/store/modules/attr'
 import { ref, reactive, nextTick } from 'vue'
 import { ElMessage } from 'element-plus'
-
+import {platformattributedatatype,valuetype}from '@/api/product/type'
 // 记录选择了哪个产品分类
 let AttrStore = useAttrStore()
 onMounted(() => {
@@ -161,7 +161,7 @@ const getpropertyList = async () => {
     // 调用接口，返回产品分类
     AttrStore.propertyList = propertyList
     // 把propertyList存进pina仓库
-    console.log(propertyList)
+  
   } catch (error) {
     console.error('获取属性信息时出错:', error)
   }
@@ -181,7 +181,6 @@ const getplatformattribute = async () => {
     // 调用接口，获取该产品分类中，产品属性和属性值
     AttrStore.platformattributeList = platformattributeList
     // 调回来的产品属性和属性值存入仓库
-    console.log(platformattributeList)
   } catch (error) {
     console.error('获取属性信息时出错:', error)
   }
@@ -198,8 +197,7 @@ const add = () => {
   addvalue.value = 1
   // 控制是否出现属性值添加或修改界面
 }
-const edit = (row: any) => {
-  console.log(row)
+const edit = (row:platformattributedatatype) => {
   Object.assign(attribute, row)
   addvalue.value = 1
   // 控制是否出现属性值添加或修改界面
@@ -242,7 +240,7 @@ const attributeaddvalue = () => {
   })
 }
 
-const toolook = ($index: number, row: any) => {
+const toolook = ($index: number, row:valuetype) => {
   // 在失去焦点的情况下检查数据
   //非法情况1
   if (row.valuename.trim() == '') {
@@ -275,7 +273,7 @@ const toolook = ($index: number, row: any) => {
   //相应的属性值对象flag:变为false,展示div
   row.flag = false
 }
-const editvalue = (row: any, $index: number) => {
+const editvalue = (row: valuetype, $index: number) => {
   row.flag = true
   nextTick(() => {
     inputArr.value[$index].focus()

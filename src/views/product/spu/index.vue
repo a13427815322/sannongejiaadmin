@@ -95,13 +95,13 @@
 import { ref, watch, nextTick, onBeforeUnmount, reactive } from 'vue'
 import useAttrStore from '@/store/modules/attr'
 import { GetSpuDetail, GetSkuDetail, DelSpu } from '@/api/product/spu'
-import { spudetailtype, spudetaildata } from '@/api/product/type'
+import {  skudetailtype,spudetaildata } from '@/api/product/type'
 import { ElMessage } from 'element-plus'
 import spufrom from './spufrom.vue'
 import skufrom from './skufrom.vue'
 const AttrStore = useAttrStore()
 let addvalue = ref(0)
-let spudetail = ref<spudetailtype[]>([])
+let spudetail = ref<spudetaildata[]>([])
 watch(
   () => AttrStore.Selectvalue,
   () => {
@@ -120,9 +120,8 @@ const getspudetail = async (pager = 1) => {
       pageSize.value,
     )
     if (result.data) {
-      // console.log(result)
       spudetail.value = result.data
-      total.value = result.data[0].total_count
+      total.value = (result.data[0].total_count as number)
     } else {
       total.value = 0
     }
@@ -170,10 +169,9 @@ const addsku = (row: spudetaildata) => {
   })
 }
 let lookskudetail = ref(false)
-let skudetail = reactive([])
-const tolooksku = async (row: any) => {
+let skudetail = reactive<skudetailtype[]>([])
+const tolooksku = async (row: spudetaildata) => {
   const result = await GetSkuDetail(row.id)
-  console.log(result)
   skudetail = result.data
   nextTick(() => {
     lookskudetail.value = true

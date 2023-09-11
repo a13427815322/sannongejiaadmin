@@ -7,7 +7,6 @@ import { constantRoute, asyncRoute, anyRoute } from '@/router/routes'
 //@ts-expect-error
 import cloneDeep from 'lodash/cloneDeep'
 import router from '@/router'
-import { ro } from 'element-plus/es/locale/index.js'
 function filterAsyncRoute(asnycRoute: any, routes: any) {
   return asnycRoute.filter((item: any) => {
     if (routes.includes(item.name)) {

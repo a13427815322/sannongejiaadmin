@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-card shadow="always">
-      <el-form label-width="100px" size="normal" :model="skudetail">
+      <el-form label-width="100px" size="normal" :model="skudetail"  @submit.native.prevent>
         <el-form-item label="SKU名称">
           <el-input
             placeholder="请输入SKU名称"
@@ -95,7 +95,8 @@
 
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
-import { skudetailtype } from '@/api/product/type'
+import { skuplatformattribute,skusaleattrvalue,imagetype,skudetailtype,spuSaleAttr,platformattributedatatype } from '@/api/product/type'
+
 import {
   GeteExistingattribute,
   GetSpuImage,
@@ -118,9 +119,9 @@ const skudetail = reactive<skudetailtype>({
 const exit = () => {
   $emit('exit')
 }
-let ExistingattributeList: any = ref([])
-let platformattributList: any = ref([])
-let SpuImageList: any = ref([])
+let ExistingattributeList= ref<spuSaleAttr[]>([])
+let platformattributList= ref<platformattributedatatype[]>([])
+let SpuImageList = ref<imagetype[]>([])
 const getskuinfo = async (Selectvalue: number, spuid: number) => {
   // console.log(Selectvalue,spuid)
   const result1 = await GeteExistingattribute(spuid)
@@ -130,28 +131,22 @@ const getskuinfo = async (Selectvalue: number, spuid: number) => {
   ExistingattributeList.value = result1.data
   platformattributList.value = result2.data
   SpuImageList.value = result3
-  console.log(
-    ExistingattributeList.value,
-    platformattributList.value,
-    SpuImageList.value,
-  )
 }
 const table = ref()
-const setdefaultimg = (row: any) => {
-  // console.log(row)
-  SpuImageList.value.forEach((item: any) => {
+const setdefaultimg = (row: imagetype) => {
+  SpuImageList.value.forEach((item:imagetype) => {
     table.value.toggleRowSelection(item, false)
   })
   //选中的图片才勾选
   table.value.toggleRowSelection(row, true)
   skudetail.skuimage = row.imgurl
 }
-const setectiondefaultimg = (row: any, selection: any) => {
+const setectiondefaultimg = (row:imagetype[], selection: imagetype) => {
   if (row.length > 1) {
-    row = row.filter((item: any) => {
+    row = row.filter((item:imagetype) => {
       return item.id == selection.id
     })
-    SpuImageList.value.forEach((item: any) => {
+    SpuImageList.value.forEach((item: imagetype) => {
       table.value.toggleRowSelection(item, false)
     })
     //选中的图片才勾选
@@ -169,13 +164,13 @@ const cellClass = (row: any) => {
   }
 }
 const setskuindfo = async () => {
-  let attribute = ExistingattributeList.value.filter((item: any) => {
+  let attribute = ExistingattributeList.value.filter((item: spuSaleAttr) => {
     return item.hasOwnProperty('platformattributidandvalue')
   })
-  let platformattribut = platformattributList.value.filter((item: any) => {
+  let platformattribut = platformattributList.value.filter((item: platformattributedatatype) => {
     return item.hasOwnProperty('platformattributidandvalue')
   })
-  skudetail.skusaleattrvalueList = attribute.reduce((prev: any, next: any) => {
+  skudetail.skusaleattrvalueList = attribute.reduce((prev: skusaleattrvalue[], next:any) => {
     let [id, saleattrname] = next.platformattributidandvalue.split(':')
     prev.push({
       id,
@@ -184,7 +179,7 @@ const setskuindfo = async () => {
     return prev
   }, [])
   skudetail.skuplatformattributeList = platformattribut.reduce(
-    (prev: any, next: any) => {
+    (prev:skuplatformattribute[], next: any) => {
       let [id, platformattrname] = next.platformattributidandvalue.split(':')
       prev.push({
         id,

@@ -1,4 +1,5 @@
 import request from '@/utils/require'
+import { orderfromresponetype } from './type'
 enum Api {
   GETORDERFROM = 'orderfrom/getorderfrom',
 }
@@ -7,5 +8,5 @@ export const GetOrderfrom = (
   pageSize: number,
   status: number,
 ) => {
-  return request.post<any, any>(Api.GETORDERFROM, { pageNo, pageSize, status })
+  return request.post<any, orderfromresponetype>(Api.GETORDERFROM, { pageNo, pageSize, status })
 }

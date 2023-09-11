@@ -34,15 +34,13 @@
 </template>
 
 <script setup lang="ts">
-import { GetKunchun } from '@/api/home'
 import * as echarts from 'echarts'
 import { ref, onMounted } from 'vue'
 import 'echarts-liquidfill'
 let target = ref()
 
 onMounted(async () => {
-  await getkuchun()
-  console.log(skunameattr.value)
+
   let mychart = echarts.init(target.value)
   mychart.setOption({
     title: {
@@ -77,19 +75,7 @@ onMounted(async () => {
     },
   })
 })
-let skunameattr = ref([])
-let kunchunattr = ref([])
-const getkuchun = async () => {
-  const result = await GetKunchun()
-  if (result.code == 200) {
-    skunameattr.value = result.data.map((item: any) => {
-      return item.skuname
-    })
-    kunchunattr.value = result.data.map((item: any) => {
-      return item.skucount
-    })
-  }
-}
+
 </script>
 
 <style scoped></style>

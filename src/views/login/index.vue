@@ -4,6 +4,7 @@
       <el-col :span="12" :xs="0"></el-col>
       <el-col :span="12" :xs="24">
         <el-form
+        @submit.native.prevent
           class="login_from"
           :model="user"
           :rules="rules"
@@ -71,13 +72,9 @@ const login = async () => {
       let redirect: any = $router.query.redirect
       if (redirect) {
         const routess = router.getRoutes()
-        console.log(routess)
         const isroute = routess.find((item) => {
-          console.log(item.path, redirect)
-          console.log(item.path == redirect)
           return item.path == redirect
         })
-        console.log(isroute)
         if (isroute) {
           console.log(1)
           router.push({ path: redirect || '/' })

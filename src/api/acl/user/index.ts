@@ -1,4 +1,5 @@
 import request from '@/utils/require'
+import {adminuserinforespone,Respone,draweruserinfotype,allroleinfotype} from './type'
 enum API {
   GETADMINUSERINFO = 'acl/getadminuserinfo',
   ADDNEWUSER = 'acl/addnewuser',
@@ -8,22 +9,22 @@ enum API {
   DELETEUSER = 'acl/deleteuser',
 }
 export const GetAdminUserInfo = (pageNo: number, pageSize: number) => {
-  return request.post<any, any>(API.GETADMINUSERINFO, { pageNo, pageSize })
+  return request.post<any, adminuserinforespone>(API.GETADMINUSERINFO, { pageNo, pageSize })
 }
 export const SearchUser = (searchvalue: string) => {
-  return request.post<any, any>(API.SEARCHUSER, {
+  return request.post<any, adminuserinforespone>(API.SEARCHUSER, {
     searchvalue,
   })
 }
-export const AddNewUser = (user: any) => {
-  return request.post<any, any>(API.ADDNEWUSER, user)
+export const AddNewUser = (user: draweruserinfotype) => {
+  return request.post<any, Respone>(API.ADDNEWUSER, user)
 }
 export const SetUserRole = (userid: number, roles: number[]) => {
-  return request.post<any, any>(API.SETUSERROLE, { userid, roles })
+  return request.post<any, Respone>(API.SETUSERROLE, { userid, roles })
 }
 export const DeleteUser = (useridattr: number[]) => {
-  return request.post<any, any>(API.DELETEUSER, useridattr)
+  return request.post<any, Respone>(API.DELETEUSER, useridattr)
 }
 export const GetAllRoleInFO = () => {
-  return request.get<any, any>(API.GETALLROLEINFO)
+  return request.get<any, allroleinfotype>(API.GETALLROLEINFO)
 }

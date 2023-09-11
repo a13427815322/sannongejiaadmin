@@ -175,6 +175,7 @@ const getallskudetail = async (paper = 1) => {
   pageNo.value = paper
   const result = await GetAllSkuDetail(pageNo.value, pageSize.value)
   if (result.code == 200) {
+    console.log(result)
     skudetail.value = result.data
     total.value = result.total
   } else {

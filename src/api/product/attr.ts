@@ -1,5 +1,6 @@
 import request from '@/utils/require'
 import { platformattribute } from '@/store/modules/types/types'
+import { propertydatatype,platformattributetype } from './type'
 enum API {
   GETPROPERTYINFO_URL = 'product/getpropertyinfo',
   GETPLATFORMATTRIBUTE = 'product/getplatformattribute',
@@ -7,10 +8,10 @@ enum API {
   DELPLATFORMATTRIBUTE = 'product/delplatformattribute',
 }
 export const GetPropertyinfo = () => {
-  return request.get<any, any>(API.GETPROPERTYINFO_URL)
+  return request.get<any, propertydatatype>(API.GETPROPERTYINFO_URL)
 }
 export const Getplatformattribute = (id: number) => {
-  return request.post<any, any>(API.GETPLATFORMATTRIBUTE, { id })
+  return request.post<any, platformattributetype>(API.GETPLATFORMATTRIBUTE, { id })
 }
 export const Setplatformattribute = (attribute: platformattribute) => {
   return request.post<any, any>(API.SETPLATFORMATTRIBUTE, attribute)

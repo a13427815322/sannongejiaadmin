@@ -1,7 +1,8 @@
 <template>
   <div>
     <el-card style="margin: 10px 0">
-      <el-from
+      <el-form
+      @submit.native.prevent
         :inline="true"
         style="
           display: flex;
@@ -26,7 +27,7 @@
           </el-button>
           <el-button type="success" @click="resetuser">重置</el-button>
         </el-form-item>
-      </el-from>
+      </el-form>
     </el-card>
     <el-card>
       <el-button type="success" @click="adduser">添加用户</el-button>
@@ -117,7 +118,7 @@
     </el-card>
     <el-drawer title="添加用户" v-model="drawer" size="30%">
       <template #default>
-        <el-form ref="formRef" :model="draweruserinfo" :rules="rules">
+        <el-form ref="formRef" :model="draweruserinfo" :rules="rules"  @submit.native.prevent>
           <el-form-item label="用户名" label-width="100px" prop="username">
             <el-input
               placeholder="请输入用户名"
@@ -193,7 +194,7 @@ let pageSize = ref(3)
 let total = ref(0)
 let drawer = ref(false)
 let drawer1 = ref(false)
-let draweruserinfo = reactive({
+let draweruserinfo = reactive<draweruserinfotype>({
   userid: 0,
   username: '',
   name: '',
@@ -201,11 +202,11 @@ let draweruserinfo = reactive({
 })
 const reftable = ref()
 let userid = ref(0)
-
+import {adminuserinfotype,draweruserinfotype,roleinfo} from '@/api/acl/user/type'
 onMounted(() => {
   getadminuser()
 })
-let adminuserinfo = ref([])
+let adminuserinfo = ref<adminuserinfotype[]>([])
 let serachvalue = ref('')
 const getadminuser = async (paper = 1) => {
   pageNo.value = paper
@@ -234,6 +235,7 @@ const adduser = () => {
   })
 }
 let formRef = ref()
+// @ts-ignore
 const validatorUsername = (rule: any, value: any, callBack: any) => {
   //用户名字|昵称,长度至少五位
   if (value.trim().length >= 5) {
@@ -242,6 +244,7 @@ const validatorUsername = (rule: any, value: any, callBack: any) => {
     callBack(new Error('用户名字至少五位'))
   }
 }
+// @ts-ignore
 const validatorpassword = (rule: any, value: any, callBack: any) => {
   //昵称,长度至少五位
   if (value.trim().length >= 5) {
@@ -250,6 +253,7 @@ const validatorpassword = (rule: any, value: any, callBack: any) => {
     callBack(new Error('密码至少五位'))
   }
 }
+// @ts-ignore
 const validatorname = (rule: any, value: any, callBack: any) => {
   //用户名字|昵称,长度至少五位
   if (value.trim().length > 0) {
@@ -295,7 +299,7 @@ const savefrom = async () => {
 const qvxiao = () => {
   drawer.value = false
 }
-const edituser = (row: any) => {
+const edituser = (row: adminuserinfotype) => {
   Object.assign(draweruserinfo, row)
   drawer.value = true
   nextTick(() => {
@@ -306,13 +310,12 @@ const edituser = (row: any) => {
 }
 const checkAll = ref(false)
 const isIndeterminate = ref(false)
-const rolechecked = ref()
-const role = ref<any>([])
-const updateuserrole = async (row: any) => {
-  console.log(row)
+const rolechecked = ref<string[]>([])
+const role = ref<roleinfo[]>([])
+const updateuserrole = async (row: adminuserinfotype) => {
   userid.value = row.userid
   if (row.roles) {
-    rolechecked.value = row.role
+    rolechecked.value = (row.role as string[])
   } else {
     rolechecked.value = []
   }
@@ -321,8 +324,8 @@ const updateuserrole = async (row: any) => {
     role.value = result.data
     checkAll.value = false
     drawer1.value = true
-    const rolelength = role.value.filter((attr: any) => {
-      return rolechecked.value.find((item: number) => {
+    const rolelength = role.value.filter((attr: roleinfo) => {
+      return rolechecked.value.find((item: string) => {
         return attr.rolename == item
       })
     })
@@ -339,7 +342,7 @@ const updateuserrole = async (row: any) => {
 }
 
 const handleCheckAllChange = () => {
-  const attr = role.value.map((item: any) => {
+  const attr = role.value.map((item: roleinfo) => {
     return item.rolename
   })
   rolechecked.value = rolechecked.value.length != attr.length ? attr : []
@@ -351,12 +354,12 @@ const handleCheckedRoleChange = (value: string[]) => {
   isIndeterminate.value = checkedCount > 0 && checkedCount < role.value.length
 }
 const setuserrole = async () => {
-  const attr = role.value.filter((item: any) => {
+  const attr = role.value.filter((item: roleinfo) => {
     return rolechecked.value.find((element: string) => {
       return element == item.rolename
     })
   })
-  const rolesvalue = attr.map((item: any) => {
+  const rolesvalue = attr.map((item: roleinfo) => {
     return item.id
   })
   const result = await SetUserRole(userid.value, rolesvalue)
@@ -382,7 +385,7 @@ const resetuser = () => {
 }
 const deletesomeuser = async () => {
   let useridattr = reftable.value.getSelectionRows()
-  useridattr = useridattr.map((item: any) => {
+  useridattr = useridattr.map((item: adminuserinfotype) => {
     return item.userid
   })
   if (useridattr.length > 0) {
@@ -398,7 +401,7 @@ const deletesomeuser = async () => {
     })
   }
 }
-const deleteuser = async (row: any) => {
+const deleteuser = async (row: adminuserinfotype) => {
   const useridattr = [row.userid]
   const result = await DeleteUser(useridattr)
   if (result.code == 200) {

@@ -56,7 +56,7 @@
       </el-table-column>
     </el-table>
     <el-dialog v-model="dialog">
-      <el-form>
+      <el-form  @submit.native.prevent>
         <el-form-item label="名称">
           <el-input
             v-model="temaddmenu.name"
@@ -82,8 +82,8 @@
 import { onMounted, ref } from 'vue'
 import { GetMenuInfo, SetMenuInfo, DeleteMenu } from '@/api/acl/perssion'
 import { ElMessage } from 'element-plus'
-import { da } from 'element-plus/es/locale/index.js'
-let perssioninfo = ref([])
+import {menuinforespone} from '@/api/acl/perssion/type'
+let perssioninfo= ref<menuinforespone> ()
 onMounted(() => {
   getmenuinfo()
 })
@@ -98,9 +98,10 @@ let temaddmenu = ref({
   pid: 0,
   name: '',
   code: '',
+  level:0
 })
 let dialog = ref(false)
-const addmenu = (row: any) => {
+const addmenu = (row:menuinforespone) => {
   Object.assign(temaddmenu.value, {
     id: 0,
     pid: row.id,
@@ -110,18 +111,20 @@ const addmenu = (row: any) => {
   })
   dialog.value = true
 }
-const editmenu = (row: any) => {
+const editmenu = (row: menuinforespone) => {
   Object.assign(temaddmenu.value, {
     id: row.id,
     pid: row.pid,
     name: row.name,
     code: row.code,
+    level:row.level
   })
   dialog.value = true
 }
 const savemenuinfo = async () => {
   const result = await SetMenuInfo(temaddmenu.value)
   if (result.code == 200) {
+    console.log(result)
     dialog.value = false
     ElMessage({
       type: 'success',
@@ -130,19 +133,19 @@ const savemenuinfo = async () => {
     getmenuinfo()
   }
 }
-const getmenuid = (data: any, result: any) => {
+const getmenuid = (data: menuinforespone, result: number[]) => {
   result.push(data.id)
   if (data.children && data.children.length != 0) {
-    data.children.forEach((item: any) => {
+    data.children.forEach((item: menuinforespone) => {
       getmenuid(item, result)
     })
   }
   return result
 }
-const deletemenu = async (row: any) => {
+const deletemenu = async (row: menuinforespone) => {
   console.log(row)
   const idattr = getmenuid(row, [])
-  // console.log(idattr)
+  console.log(idattr)
   const result = await DeleteMenu(idattr)
   if (result.code == 200) {
     ElMessage({

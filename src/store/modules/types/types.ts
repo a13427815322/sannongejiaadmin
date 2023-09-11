@@ -24,7 +24,7 @@ interface property {
 }
 interface platformattributeList {
   code?: number
-  data?: platformattribute
+  data?: platformattribute[]
   message?: string
 }
 export interface platformattribute {

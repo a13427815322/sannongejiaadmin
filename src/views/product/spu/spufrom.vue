@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-card>
-      <el-form label-width="110" :model="spudetail">
+      <el-form label-width="110" :model="spudetail"    @submit.native.prevent>
         <el-form-item label="SPU名称 :">
           <el-input
             placeholder="请你输入SPU名称"
@@ -141,10 +141,10 @@ import {
 let $emit = defineEmits(['exit'])
 const fileList = ref<UploadUserFile[]>([])
 const uploadUrl = 'http://localhost:3000/upload'
-
+import {saleattrListtype,spuSaleAttr,imagetype}from '@/api/product/type'
 const dialogImageUrl = ref('')
 const dialogVisible = ref(false)
-const saleattrList: any = ref([])
+const saleattrList  = ref<saleattrListtype[]>([])
 let spudetail = ref<spudetaildata>({
   spuname: '',
   id: 0,
@@ -181,9 +181,10 @@ const geteditinfo = async (val: spudetaildata) => {
 }
 const getexistingattribute = async (id: number) => {
   const result = await GeteExistingattribute(id)
+  console.log(result)
   if (result.hasOwnProperty('data')) {
     spudetail.value.spuSaleAttrList = result.data
-    spudetail.value.spuSaleAttrList?.forEach((item: any) => {
+    spudetail.value.spuSaleAttrList?.forEach((item: spuSaleAttr) => {
       item.saleattr = ''
       item.flag = false
     })
@@ -191,7 +192,7 @@ const getexistingattribute = async (id: number) => {
   }
   const result1 = await GetSpuImage(id)
 
-  fileList.value = result1.map((item: any) => {
+  fileList.value = result1.map((item: imagetype) => {
     return {
       name: item.imagename,
       url: item.imgurl,
@@ -204,7 +205,7 @@ const exit = () => {
   $emit('exit')
 }
 const SaleAttr = computed(() =>
-  saleattrList.value.filter((saleattr: any) => {
+  saleattrList.value.filter((saleattr: saleattrListtype) => {
     // console.log(saleattr.basesaleattrid)
     return !spudetail.value.spuSaleAttrList?.find((spuSaleAttrlist) => {
       // console.log(spuSaleAttrlist.basesaleattrid)
@@ -212,32 +213,31 @@ const SaleAttr = computed(() =>
     })
   }),
 )
-const removevalue = (index: number, row: any) => {
-  console.log(index, row)
+const removevalue = (index: number, row: spuSaleAttr) => {
   row.saleattrvaluelist.splice(index, 1)
 }
 const addsaleattrbuite = () => {
-  SaleAttr.value.find((attr: any) => {
-    return attr.basesaleattrid == values.value
-  }).spuid = spudetail.value.id
+  SaleAttr.value.find((attr: saleattrListtype) => {
+    return attr.basesaleattrid ==Number(values.value) 
+  })
   if (spudetail.value.spuSaleAttrList) {
     spudetail.value.spuSaleAttrList?.push(
-      SaleAttr.value.find((attr: any) => {
-        return attr.basesaleattrid == values.value
-      }),
+      (SaleAttr.value.find((attr: saleattrListtype) => {
+        return attr.basesaleattrid ==Number(values.value)
+      })as spuSaleAttr )
     )
     values.value = ''
   } else {
     console.log(SaleAttr.value)
     spudetail.value.spuSaleAttrList = [
-      SaleAttr.value.find((attr: any) => {
-        return attr.basesaleattrid == values.value
-      }),
+    (  SaleAttr.value.find((attr: saleattrListtype) => {
+        return attr.basesaleattrid == Number(values.value) 
+      })as spuSaleAttr),
     ]
     values.value = ''
   }
 }
-const deletevalue = (row: any) => {
+const deletevalue = (row:spuSaleAttr) => {
   console.log(row.basesaleattrid)
   spudetail.value.spuSaleAttrList = spudetail.value.spuSaleAttrList?.filter(
     (attrlist) => {
@@ -245,14 +245,14 @@ const deletevalue = (row: any) => {
     },
   )
 }
-const addsaleattrbuitevalue = (row: any, $index: number) => {
+const addsaleattrbuitevalue = (row: spuSaleAttr, $index: number) => {
   row.flag = true
   row.saleattr = ''
   nextTick(() => {
     inputArr.value[$index].focus()
   })
 }
-const saveaddvalue = (row: any) => {
+const saveaddvalue = (row: spuSaleAttr) => {
   if (row.saleattr.trim()) {
     if (row.saleattrvaluelist) {
       row.saleattrvaluelist.push(row.saleattr)
@@ -309,7 +309,6 @@ const save = async () => {
   spudetail.value.spuImageList = result.value
   //图片数据处理
   const result1 = await SetSpuDetail(spudetail.value)
-  console.log(result1)
   if (result1.code == 200) {
     ElMessage({
       type: 'success',

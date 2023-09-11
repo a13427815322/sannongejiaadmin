@@ -1,5 +1,5 @@
 import request from '@/utils/require'
-
+import {skudetailresponetype,imagetype, Respone,spudetailtype ,saleattrListtype, Existingattributeresponetepe} from './type'
 enum API {
   GETSPUDETAIL = 'product/getspudetail',
   GETSALEATTR = 'product/getsaleattr',
@@ -15,31 +15,31 @@ export const GetSpuDetail = (
   pageNo: number,
   pageSize: number,
 ) => {
-  return request.post<any, any>(API.GETSPUDETAIL, {
+  return request.post<any, spudetailtype>(API.GETSPUDETAIL, {
     propertyid,
     pageNo,
     pageSize,
   })
 }
 export const GetSaleattr = () => {
-  return request.get<any, any>(API.GETSALEATTR)
+  return request.get<any,saleattrListtype[]>(API.GETSALEATTR)
 }
 
 export const GeteExistingattribute = (spuid: number) => {
-  return request.post<any, any>(API.GETEXISTINGATTRIBUTE, { spuid })
+  return request.post<any, Existingattributeresponetepe>(API.GETEXISTINGATTRIBUTE, { spuid })
 }
 export const SetSpuDetail = (spudetail: any) => {
-  return request.post<any, any>(API.SETSPUDETAIL, spudetail)
+  return request.post<any, Respone>(API.SETSPUDETAIL, spudetail)
 }
 export const GetSpuImage = (spuid: number) => {
-  return request.post<any, any>(API.GETSPUIMAGE, { spuid })
+  return request.post<any, imagetype[]>(API.GETSPUIMAGE, { spuid })
 }
 export const SetSkuDetail = (skudetail: any) => {
-  return request.post<any, any>(API.SETSKUDETAIL, skudetail)
+  return request.post<any, Respone>(API.SETSKUDETAIL, skudetail)
 }
 export const GetSkuDetail = (spuid: number) => {
-  return request.post<any, any>(API.GETSKUDETAIL, { spuid })
+  return request.post<any, skudetailresponetype>(API.GETSKUDETAIL, { spuid })
 }
 export const DelSpu = (spuid: number) => {
-  return request.post<any, any>(API.DELSPU, { spuid })
+  return request.post<any, Respone>(API.DELSPU, { spuid })
 }

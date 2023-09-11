@@ -13,10 +13,10 @@
 import { GetKunchun } from '@/api/home'
 import * as echarts from 'echarts'
 import { ref, onMounted } from 'vue'
+import {kunchun} from '@/api/home/type'
 let inventory = ref()
 onMounted(async () => {
   await getkuchun()
-  console.log(skunameattr.value)
   let mychart = echarts.init(inventory.value)
   mychart.setOption({
     color: ['#0d9'],
@@ -34,7 +34,7 @@ onMounted(async () => {
       axisLabel: {
         interval: 0,
         show: true,
-        formatter: function (value: any) {
+        formatter: function (value: string) {
           var ret = '' //拼接加\n返回的类目项
           var maxLength = 5 //每项显示文字个数
           var valLength = value.length //X轴类目项的文字个数
@@ -78,15 +78,15 @@ onMounted(async () => {
     ],
   })
 })
-let skunameattr = ref([])
-let kunchunattr = ref([])
+let skunameattr = ref<string[]>([])
+let kunchunattr = ref<number[]>([])
 const getkuchun = async () => {
   const result = await GetKunchun()
   if (result.code == 200) {
-    skunameattr.value = result.data.map((item: any) => {
+    skunameattr.value = result.data.map((item: kunchun) => {
       return item.skuname
     })
-    kunchunattr.value = result.data.map((item: any) => {
+    kunchunattr.value = result.data.map((item: kunchun) => {
       return item.skucount
     })
   }
