@@ -96,13 +96,11 @@ app.post('/upload', upload.single('image'), (req, res) => {
 
   let imageUrl = req.file.path
   imageUrl = imageUrl.replace(/\\/g, '/')
-  return res
-    .status(200)
-    .json({
-      code: 200,
-      data: { imageUrl: `http://localhost:${port}/${imageUrl}` },
-      message: '图片上传成功',
-    })
+  return res.status(200).json({
+    code: 200,
+    data: { imageUrl: `http://localhost:${port}/${imageUrl}` },
+    message: '图片上传成功',
+  })
 })
 
 app.get('/product/getpropertyinfo', (req, res) => {
