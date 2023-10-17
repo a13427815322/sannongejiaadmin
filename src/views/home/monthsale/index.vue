@@ -1,5 +1,5 @@
 <template>
-  <div style="flex: 1; margin-left: 5%">
+  <div style="flex: 1; margin-left: 20px">
     <el-card
       shadow="always"
       style="width: 100%; height: 400px; margin-top: 20px"
@@ -91,8 +91,7 @@ onMounted(async () => {
     ],
   })
 })
-let skunameattr = ref([])
-let kunchunattr = ref([])
+
 </script>
 
 <style scoped></style>
